@@ -1,11 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.4.22 <0.9.0;
+pragma experimental ABIEncoderV2;
 
 import {Ownable} from "./Ownable.sol";
 
 contract DMed is Ownable {
-    event AddedHospital(uint256 _hospitalId, address indexed _hospitalAddress);
-
     struct Hospital {
         uint256 id;
         bytes32 name;
@@ -37,7 +36,7 @@ contract DMed is Ownable {
         address walletAddress;
     }
 
-    struct Authorities {
+    struct Organization {
         uint256 id;
         bytes32 name;
         address walletAddress;
@@ -48,7 +47,7 @@ contract DMed is Ownable {
 
     uint256 public hospitalId = 1;
     uint256 public recordId = 1;
-    uint256 public authoritiesId = 1;
+    uint256 public organizationId = 1;
 
     // to map hospitalId to Hospital Struct
     mapping(uint256 => Hospital) public hospitals;
@@ -66,18 +65,22 @@ contract DMed is Ownable {
     mapping(address => uint256) public patientToId;
 
     // to map government authorities Authorities Struct
-    mapping(uint256 => Authorities) public authorities;
+    mapping(uint256 => Organization) public organizations;
+
+    // mapping from organization address to id
+    mapping(address => uint256) organizationToId;
 
     // nested mapping of (patientId) => ((address of authority)) => (isAuthorised ?))
     mapping(uint256 => mapping(address => bool)) public authorised;
 
     /*              Functions             */
+
     /* 
     - function to add new hospitals. 
     - Callable by only admins. 
     - receive name of hospital, address of hosptial, wallet of hospital, and IPFS Hash of document
     - emits an event for adding new hospital
-  */
+    */
     function addHospital(
         bytes32 name,
         bytes32 physicalAddress,
@@ -97,8 +100,6 @@ contract DMed is Ownable {
         );
         hospitalToId[walletAddress] = hospitalId;
         hospitalId++;
-
-        emit AddedHospital(hospitalId - 1, walletAddress);
     }
 
     /*
@@ -183,12 +184,100 @@ contract DMed is Ownable {
             _walletAddress
         );
 
-        patientToId[_walletAddress]=_id;
-
+        patientToId[_walletAddress] = _id;
         patients[_id] = pat;
     }
 
+    /* 
+    - function to add new organizations. 
+    - Callable by only admins. 
+    - receive name of organiation, _walletAddress of organization, and IPFS Hash of document
+    */
+    function addOrganization(
+        bytes32 _name,
+        address _walletAddress,
+        bytes32 _license
+    ) public onlyAdmin {
+        require(
+            organizationToId[_walletAddress] == 0,
+            "Organization already exists"
+        );
+        organizations[organizationId] = Organization(
+            organizationId,
+            _name,
+            _walletAddress,
+            _license
+        );
+        organizationToId[_walletAddress] = organizationId;
+
+        organizationId++;
+    }
+
+    /*
+    - function to give access authority to addresses
+    - message sender must be the patient
+    - if all condition pass add id of patient and address to authorised mapping
+    */
+    function addAuthByAddress(address addr) public onlyPatient {
+        uint256 _id = patientToId[msg.sender];
+        authorised[_id][addr] = true;
+    }
+
+    /*
+    - function to give access authority to an organization
+    - message sender must be the patient
+    - firstly check if organization with the given id exist or not
+    - if all conditions pass add id of patient and address of the organization to the mapping
+    */
+    function addAuthById(uint256 _id) public onlyPatient {
+        Organization memory org = organizations[_id];
+        require(org.id != 0, "No such organization found");
+        uint256 patientId = patientToId[msg.sender];
+        authorised[patientId][org.walletAddress] = true;
+    }
+
+    /*
+    - function to remove access rights from some address
+    - message sender must be the patient
+    - check if the given address has the access authorities
+    - if all conditions check, remove the mapping of id and address
+    */
+    function revokeAuthByAddress(address addr) public onlyPatient {
+        uint256 _id = patientToId[msg.sender];
+        require(authorised[_id][addr] == true, "Already not authorised");
+
+        authorised[_id][addr] = false;
+    }
+
+    /*
+    - function to remove access authority from an organization
+    - message sender must be the patient
+    - check if the given organization exists or not
+    - check if the given organization has the access authorities
+    - if all conditions check, remove the mapping of id and address
+    */
+    function revokeAuthById(uint256 _id) public onlyPatient {
+        Organization memory org = organizations[_id];
+        require(org.id != 0, "No such organization found");
+        uint256 patientId = patientToId[msg.sender];
+
+        require(
+            authorised[patientId][org.walletAddress] == true,
+            "Already not authorised"
+        );
+        authorised[patientId][org.walletAddress] = false;
+    }
+
     /*              Modifiers             */
+
+    modifier onlyPatient() {
+        uint256 _id = patientToId[msg.sender];
+        require(
+            _id != 0 && patients[_id].id != 0,
+            "sender must be the patient"
+        );
+        _;
+    }
 
     modifier onlyHospital() {
         uint256 _id = hospitalToId[msg.sender];
