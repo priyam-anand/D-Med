@@ -43,37 +43,34 @@ contract DMed is Ownable {
         bytes32 License;
     }
 
-    /*              State Variables             */
-
     uint256 public hospitalId = 1;
     uint256 public recordId = 1;
     uint256 public organizationId = 1;
 
     // to map hospitalId to Hospital Struct
-    mapping(uint256 => Hospital) public hospitals;
+    mapping(uint256 => Hospital) private hospitals;
 
     // mapping to check if an address is already a registered hospital or not
-    mapping(address => uint256) public hospitalToId;
+    mapping(address => uint256) private hospitalToId;
 
     // to map medical record id to Record struct
-    mapping(uint256 => Record) public records;
+    mapping(uint256 => Record) private records;
 
     // to map paitentId to Patient Struct
-    mapping(uint256 => Patient) public patients;
+    mapping(uint256 => Patient) private patients;
 
     // mapping from patient address to patient id
-    mapping(address => uint256) public patientToId;
+    mapping(address => uint256) private patientToId;
 
     // to map government authorities Authorities Struct
-    mapping(uint256 => Organization) public organizations;
+    mapping(uint256 => Organization) private organizations;
 
     // mapping from organization address to id
-    mapping(address => uint256) organizationToId;
+    mapping(address => uint256) private organizationToId;
 
     // nested mapping of (patientId) => ((address of authority)) => (isAuthorised ?))
-    mapping(uint256 => mapping(address => bool)) public authorised;
+    mapping(uint256 => mapping(address => bool)) private authorised;
 
-    /*              Functions             */
 
     /* 
     - function to add new hospitals. 
@@ -100,6 +97,21 @@ contract DMed is Ownable {
         );
         hospitalToId[walletAddress] = hospitalId;
         hospitalId++;
+    }
+
+    /*
+    - function to get hopital with the given id
+    - check if any hosptial exists with the given Id
+    - If the hosptial exists then we return it 
+    */
+    function getHospitalById(uint256 _id)
+        public
+        view
+        returns (Hospital memory)
+    {
+        require(hospitals[_id].id != 0, "No such hosptial exists");
+        Hospital memory hosp = hospitals[_id];
+        return hosp;
     }
 
     /*
@@ -268,14 +280,17 @@ contract DMed is Ownable {
         authorised[patientId][org.walletAddress] = false;
     }
 
-    /*              Modifiers             */
+    modifier onlyAuthorised(uint256 _id) {
+        require(
+            authorised[_id][msg.sender] == true,
+            "Only authorised addressed"
+        );
+        _;
+    }
 
     modifier onlyPatient() {
         uint256 _id = patientToId[msg.sender];
-        require(
-            _id != 0 && patients[_id].id != 0,
-            "sender must be the patient"
-        );
+        require(_id != 0 && patients[_id].id != 0, "Only patient is allowed");
         _;
     }
 
