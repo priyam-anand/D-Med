@@ -16,7 +16,9 @@ contract Ownable {
 
     function changeOwner(address _newOwner) public onlyOwner returns (bool) {
         require(_newOwner != owner, "You are the owner already");
+        admin[owner] = false;
         owner = _newOwner;
+        admin[owner] = true;
         emit OwnerChanged(msg.sender, owner);
         return true;
     }

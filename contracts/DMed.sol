@@ -71,6 +71,24 @@ contract DMed is Ownable {
     // nested mapping of (patientId) => ((address of authority)) => (isAuthorised ?))
     mapping(uint256 => mapping(address => bool)) private authorised;
 
+    /*
+        - function to get the address of the owner
+        - no restriction in the access
+        - returns the address of the current owner
+    */
+    function getOwner() public view returns (address) {
+        return owner;
+    }
+
+    /*
+        - function to check if the given address is an admin or not
+        - no restriction in the access
+        - returns true or false.
+    */
+    function isAdmin(address _admin) public view returns (bool) {
+        return admin[_admin];
+    }
+
     /* 
         - function to add new hospitals. 
         - Callable by only admins. 
