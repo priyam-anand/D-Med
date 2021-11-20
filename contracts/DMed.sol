@@ -126,7 +126,7 @@ contract DMed is Ownable {
         view
         returns (Hospital memory)
     {
-        require(hospitals[_id].id != 0, "No such hosptial exists");
+        require(hospitals[_id].id != 0, "No such hospital exists");
         Hospital memory hosp = hospitals[_id];
         return hosp;
     }
@@ -137,14 +137,14 @@ contract DMed is Ownable {
         - now we check if any hosptial exists with the returned Id
         - If the hosptial exists then we return it 
     */
-    function getHosptialByAddress(address _address)
+    function getHospitalByAddress(address _address)
         public
         view
         returns (Hospital memory)
     {
-        require(hospitalToId[_address] != 0, "No such hospital exist");
+        require(hospitalToId[_address] != 0, "No such hospital exists");
         uint256 _id = hospitalToId[_address];
-        require(hospitals[_id].id != 0, "No such hospital exist");
+        require(hospitals[_id].id != 0, "No such hospital exists");
         Hospital memory hosp = hospitals[_id];
         return hosp;
     }
@@ -198,9 +198,9 @@ contract DMed is Ownable {
         address _walletAddress
     ) public onlyHospital {
         require(patients[_id].id == 0, "Patient already exists");
-
         uint256[] memory _records;
-        Patient memory pat = Patient(
+        patientToId[_walletAddress] = _id;
+        patients[_id] = Patient(
             _id,
             _name,
             _gender,
@@ -212,9 +212,6 @@ contract DMed is Ownable {
             _profilePicture,
             _walletAddress
         );
-
-        patientToId[_walletAddress] = _id;
-        patients[_id] = pat;
     }
 
     /* 
@@ -240,6 +237,39 @@ contract DMed is Ownable {
         organizationToId[_walletAddress] = organizationId;
 
         organizationId++;
+    }
+
+    /*
+        - function to get organization with the given id
+        - check if any organization exists with the given Id
+        - If the organization exists then we return it 
+    */
+    function getOrganizationById(uint256 _id)
+        public
+        view
+        returns (Organization memory)
+    {
+        require(organizations[_id].id != 0, "No such organization exists");
+        return organizations[_id];
+    }
+
+    /*
+        - function to get organization having the specified address
+        - firstly checks if the given address exists in the mapping from organizationAddress to Id
+        - now we check if any organization exists with the returned Id
+        - If the organization exists then we return it 
+    */
+    function getOrganizationByAddress(address _addr)
+        public
+        view
+        returns (Organization memory)
+    {
+        uint256 _id = organizationToId[_addr];
+        require(
+            _id != 0 && organizations[_id].id != 0,
+            "No such organization exists"
+        );
+        return organizations[_id];
     }
 
     /*
