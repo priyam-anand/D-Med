@@ -345,7 +345,308 @@ contract("DMed", function (accounts) {
     )
   });
 
-  
+  // Authorization realated tests
+  it("should not add auth by address if not called by paitent", async () => {
+    await expectRevert(
+      dmed.addAuthByAddress(accounts[5], { from: admin[1] })
+      , "Only patient is allowed"
+    )
+  });
+
+  it("should add auth by address", async () => {
+    const hospital = accounts[3];
+    await dmed.addHospital(
+      "Hospital1",
+      "physical address of hospital",
+      hospital,
+      "IPFS hash of license",
+      { from: admin[0] }
+    );
+    const patientId = 9685;
+    await dmed.addNewPatient(
+      patientId
+      , "John"
+      , "Male"
+      , "B+"
+      , "12/1/1989"
+      , 841706
+      , "Physical Address"
+      , "IPFS Hash of profile picture"
+      , accounts[5]
+      , { from: hospital }
+    );
+    const auth = accounts[4];
+    await dmed.addAuthByAddress(auth, { from: accounts[5] });
+
+    const patient = await dmed.getPatientDetails(patientId, { from: auth });
+    assert(patient[1] === "John");
+  })
+
+  it("should not revoke auth by address if not called by patient", async () => {
+    await expectRevert(
+      dmed.revokeAuthByAddress(accounts[1], { from: admin[1] })
+      , "Only patient is allowed"
+    )
+  });
+
+  it("should revoke auth by address", async () => {
+    const hospital = accounts[3];
+    await dmed.addHospital(
+      "Hospital1",
+      "physical address of hospital",
+      hospital,
+      "IPFS hash of license",
+      { from: admin[0] }
+    );
+    const patientId = 9685;
+    await dmed.addNewPatient(
+      patientId
+      , "John"
+      , "Male"
+      , "B+"
+      , "12/1/1989"
+      , 841706
+      , "Physical Address"
+      , "IPFS Hash of profile picture"
+      , accounts[5]
+      , { from: hospital }
+    );
+    const auth = accounts[4];
+    await dmed.addAuthByAddress(auth, { from: accounts[5] });
+    await dmed.revokeAuthByAddress(auth, { from: accounts[5] });
+
+    await expectRevert(
+      dmed.getPatientDetails(patientId, { from: auth })
+      , "Only authorised addressed"
+    );
+  });
+
+  it("should not revoke auth by address if already not auth", async () => {
+    const hospital = accounts[3];
+    await dmed.addHospital(
+      "Hospital1",
+      "physical address of hospital",
+      hospital,
+      "IPFS hash of license",
+      { from: admin[0] }
+    );
+    const patientId = 9685;
+    await dmed.addNewPatient(
+      patientId
+      , "John"
+      , "Male"
+      , "B+"
+      , "12/1/1989"
+      , 841706
+      , "Physical Address"
+      , "IPFS Hash of profile picture"
+      , accounts[5]
+      , { from: hospital }
+    );
+    const auth = accounts[4];
+    await dmed.addAuthByAddress(auth, { from: accounts[5] });
+    await dmed.revokeAuthByAddress(auth, { from: accounts[5] });
+    await expectRevert(
+      dmed.revokeAuthByAddress(auth, { from: accounts[5] })
+      , "Already not authorised"
+    )
+  });
+
+  it("should not add auth by Id if not called by paitent", async () => {
+    await dmed.addOrganization(
+      "Org1",
+      accounts[3],
+      "IPFS Hash of license",
+      { from: admin[0] }
+    );
+    await expectRevert(
+      dmed.addAuthById(1, { from: admin[1] })
+      , "Only patient is allowed"
+    )
+  });
+
+  it("should not add auth by Id if org does not exist", async () => {
+    const hospital = accounts[3];
+    await dmed.addHospital(
+      "Hospital1",
+      "physical address of hospital",
+      hospital,
+      "IPFS hash of license",
+      { from: admin[0] }
+    );
+    const patientId = 9685;
+    await dmed.addNewPatient(
+      patientId
+      , "John"
+      , "Male"
+      , "B+"
+      , "12/1/1989"
+      , 841706
+      , "Physical Address"
+      , "IPFS Hash of profile picture"
+      , accounts[5]
+      , { from: hospital }
+    );
+    await expectRevert(
+      dmed.addAuthById(1, { from: accounts[5] })
+      , "No such organization found"
+    )
+  });
+
+  it("should add auth by Id", async () => {
+    const hospital = accounts[3];
+    const org = accounts[4];
+    const patient = accounts[5];
+    await dmed.addHospital(
+      "Hospital1",
+      "physical address of hospital",
+      hospital,
+      "IPFS hash of license",
+      { from: admin[0] }
+    );
+
+    await dmed.addOrganization(
+      "Org1",
+      org,
+      "IPFS Hash of license",
+      { from: admin[0] }
+    );
+
+    const patientId = 9685;
+    await dmed.addNewPatient(
+      patientId
+      , "John"
+      , "Male"
+      , "B+"
+      , "12/1/1989"
+      , 841706
+      , "Physical Address"
+      , "IPFS Hash of profile picture"
+      , patient
+      , { from: hospital }
+    );
+
+    await dmed.addAuthById(1, { from: patient });
+    const currPatient = await dmed.getPatientDetails(patientId, { from: org });
+    assert(currPatient[1] === "John");
+  });
+
+  it("should not revoke auth by Id if not called by patient", async () => {
+    await expectRevert(
+      dmed.revokeAuthById(1, { from: admin[1] })
+      , "Only patient is allowed"
+    )
+  });
+
+  it("should not revoke auth by If if no such org exist", async () => {
+    const hospital = accounts[3];
+    await dmed.addHospital(
+      "Hospital1",
+      "physical address of hospital",
+      hospital,
+      "IPFS hash of license",
+      { from: admin[0] }
+    );
+    const patientId = 9685;
+    await dmed.addNewPatient(
+      patientId
+      , "John"
+      , "Male"
+      , "B+"
+      , "12/1/1989"
+      , 841706
+      , "Physical Address"
+      , "IPFS Hash of profile picture"
+      , accounts[5]
+      , { from: hospital }
+    );
+    await expectRevert(
+      dmed.revokeAuthById(1, { from: accounts[5] })
+      , "No such organization found"
+    )
+  });
+
+  it("should revoke auth by address", async () => {
+    const hospital = accounts[3];
+    const org = accounts[4];
+    const patient = accounts[5];
+    await dmed.addHospital(
+      "Hospital1",
+      "physical address of hospital",
+      hospital,
+      "IPFS hash of license",
+      { from: admin[0] }
+    );
+
+    await dmed.addOrganization(
+      "Org1",
+      org,
+      "IPFS Hash of license",
+      { from: admin[0] }
+    );
+
+    const patientId = 9685;
+    await dmed.addNewPatient(
+      patientId
+      , "John"
+      , "Male"
+      , "B+"
+      , "12/1/1989"
+      , 841706
+      , "Physical Address"
+      , "IPFS Hash of profile picture"
+      , patient
+      , { from: hospital }
+    );
+
+    await dmed.addAuthById(1, { from: patient });
+    await dmed.revokeAuthById(1, { from: patient });
+    await expectRevert(
+      dmed.getPatientDetails(patientId, { from: org })
+      , "Only authorised addressed"
+    )
+  });
+
+  it("should not revoke auth by id if already not auth", async () => {
+    const hospital = accounts[3];
+    const org = accounts[4];
+    const patient = accounts[5];
+    await dmed.addHospital(
+      "Hospital1",
+      "physical address of hospital",
+      hospital,
+      "IPFS hash of license",
+      { from: admin[0] }
+    );
+
+    await dmed.addOrganization(
+      "Org1",
+      org,
+      "IPFS Hash of license",
+      { from: admin[0] }
+    );
+
+    const patientId = 9685;
+    await dmed.addNewPatient(
+      patientId
+      , "John"
+      , "Male"
+      , "B+"
+      , "12/1/1989"
+      , 841706
+      , "Physical Address"
+      , "IPFS Hash of profile picture"
+      , patient
+      , { from: hospital }
+    );
+
+    await dmed.addAuthById(1, { from: patient });
+    await dmed.revokeAuthById(1, { from: patient });
+    await expectRevert(
+      dmed.revokeAuthById(1, { from: patient })
+      , "Already not authorised"
+    )
+  })
 
 });
 
