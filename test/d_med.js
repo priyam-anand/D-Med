@@ -585,19 +585,19 @@ contract("DMed", function (accounts) {
       { from: admin[0] }
     );
 
-    const patientId = 9685;
-    await dmed.addNewPatient(
-      patientId
-      , "John"
-      , "Male"
-      , "B+"
-      , "12/1/1989"
-      , 841706
-      , "Physical Address"
-      , "IPFS Hash of profile picture"
-      , patient
-      , { from: hospital }
-    );
+  const patientId = 9685;
+  await dmed.addNewPatient(
+    patientId
+    , "John"
+    , "Male"
+    , "B+"
+    , "12/1/1989"
+    , 841706
+    , "Physical Address"
+    , "IPFS Hash of profile picture"
+    , patient
+    , { from: hospital }
+  );
 
     await dmed.addAuthById(1, { from: patient });
     await dmed.revokeAuthById(1, { from: patient });
@@ -646,7 +646,264 @@ contract("DMed", function (accounts) {
       dmed.revokeAuthById(1, { from: patient })
       , "Already not authorised"
     )
-  })
+  });
 
+  // Records related tests
+
+  it("should not add record if not called by hospital", async () => {
+    await expectRevert(
+      dmed.addNewRecord(
+        1,
+        9685,
+        "Not well",
+        "High fever with cough",
+        "None",
+        "IPFS Hash of document",
+        { from: admin[1] }
+      )
+      , "Only hospitals are allowed"
+    )
+  });
+
+  it("should not add new record if patient does not exist", async () => {
+    await dmed.addHospital(
+      "Hospital1",
+      "physical address of hospital",
+      accounts[3],
+      "IPFS hash of license",
+      { from: admin[0] }
+    );
+    await expectRevert(
+      dmed.addNewRecord(
+        1,
+        9685,
+        "Not well",
+        "High fever with cough",
+        "None",
+        "IPFS Hash of document",
+        { from: accounts[3] }
+      )
+      , "The patient does not exist"
+    )
+  });
+
+  it("should add new record", async () => {
+    // For this test to work uncomment the getRecordById method in the smart contract
+
+    const hospital = accounts[3];
+    const patient = accounts[4];
+    const patientId = 9685;
+    await dmed.addHospital(
+      "Hospital1",
+      "physical address of hospital",
+      hospital,
+      "IPFS hash of license",
+      { from: admin[0] }
+    );
+    await dmed.addNewPatient(
+      patientId
+      , "John"
+      , "Male"
+      , "B+"
+      , "12/1/1989"
+      , 841706
+      , "Physical Address"
+      , "IPFS Hash of profile picture"
+      , patient
+      , { from: hospital }
+    );
+    await dmed.addNewRecord(
+      1,
+      9685,
+      "Not well",
+      "High fever with cough",
+      "None",
+      "IPFS Hash of document",
+      { from: hospital }
+    );
+    const record = await dmed.getRecordById(1);
+    assert(record.condition === "Not well")
+  });
+
+  // Patient records tests
+  it("should not get patient records if not auth", async () => {
+    await expectRevert(
+      dmed.getPatientRecords(1,{from:admin[0]})
+      , "Only authorised addressed"
+    )
+  });
+
+  it("should not get patient records if no records were stored", async () => {
+    const hospital = accounts[3];
+    await dmed.addHospital(
+      "Hospital1",
+      "physical address of hospital",
+      hospital,
+      "IPFS hash of license",
+      { from: admin[0] }
+    );
+    const patientId = 9685;
+    await dmed.addNewPatient(
+      patientId
+      , "John"
+      , "Male"
+      , "B+"
+      , "12/1/1989"
+      , 841706
+      , "Physical Address"
+      , "IPFS Hash of profile picture"
+      , accounts[5]
+      , { from: hospital }
+    );
+    const auth = accounts[4];
+    await dmed.addAuthByAddress(auth, { from: accounts[5] });
+
+    await expectRevert(
+      dmed.getPatientRecords(patientId,{from:auth})
+      , "No record found"
+    )
+  });
+
+  it("should get patient's records when called by auth address", async () => {
+    const hospital = accounts[3];
+    const patient1 = accounts[5];
+    const patient2 = accounts[4];
+    const auth = accounts[6];
+    const patientId1 = 9685;
+    const patientId2 = 9455;
+
+    await dmed.addHospital(
+      "Hospital1",
+      "physical address of hospital",
+      hospital,
+      "IPFS hash of license",
+      { from: admin[0] }
+    );
+    await dmed.addNewPatient(
+      patientId1
+      , "John"
+      , "Male"
+      , "B+"
+      , "12/1/1989"
+      , 841706
+      , "Physical Address"
+      , "IPFS Hash of profile picture"
+      , patient1
+      , { from: hospital }
+    );
+    await dmed.addNewPatient(
+      patientId2
+      , "Jean"
+      , "Female"
+      , "A+"
+      , "1/1/1989"
+      , 864554
+      , "Physical Address 2"
+      , "IPFS Hash of profile picture"
+      , patient2
+      , { from: hospital }
+    );
+    await dmed.addAuthByAddress(auth, { from: patient1 });
+    await dmed.addNewRecord(
+      1,
+      patientId1,
+      "Not well",
+      "High fever with cough",
+      "None",
+      "IPFS Hash of document",
+      { from: hospital }
+    );
+    await dmed.addNewRecord(
+      1,
+      patientId1,
+      "Not well again",
+      "High fever with cough again",
+      "Strawberries",
+      "IPFS Hash of document 1",
+      { from: hospital }
+    );
+    await dmed.addNewRecord(
+      1,
+      patientId2,
+      "Not well",
+      "High fever with cough",
+      "None",
+      "IPFS Hash of document",
+      { from: hospital }
+    );
+    const data = await dmed.getPatientRecords(patientId1,{from:auth});
+    assert(data[1][0] === "Not well" && data[1][1] === "Not well again");
+  });
+
+  it("should get patients records when called by hospital", async () => {
+    const hospital = accounts[3];
+    const patient1 = accounts[5];
+    const patient2 = accounts[4];
+    const auth = accounts[6];
+    const patientId1 = 9685;
+    const patientId2 = 9455;
+
+    await dmed.addHospital(
+      "Hospital1",
+      "physical address of hospital",
+      hospital,
+      "IPFS hash of license",
+      { from: admin[0] }
+    );
+    await dmed.addNewPatient(
+      patientId1
+      , "John"
+      , "Male"
+      , "B+"
+      , "12/1/1989"
+      , 841706
+      , "Physical Address"
+      , "IPFS Hash of profile picture"
+      , patient1
+      , { from: hospital }
+    );
+    await dmed.addNewPatient(
+      patientId2
+      , "Jean"
+      , "Female"
+      , "A+"
+      , "1/1/1989"
+      , 864554
+      , "Physical Address 2"
+      , "IPFS Hash of profile picture"
+      , patient2
+      , { from: hospital }
+    );
+    await dmed.addAuthByAddress(auth, { from: patient1 });
+    await dmed.addNewRecord(
+      1,
+      patientId1,
+      "Not well",
+      "High fever with cough",
+      "None",
+      "IPFS Hash of document",
+      { from: hospital }
+    );
+    await dmed.addNewRecord(
+      1,
+      patientId1,
+      "Not well again",
+      "High fever with cough again",
+      "Strawberries",
+      "IPFS Hash of document 1",
+      { from: hospital }
+    );
+    await dmed.addNewRecord(
+      1,
+      patientId2,
+      "Not well",
+      "High fever with cough",
+      "None",
+      "IPFS Hash of document",
+      { from: hospital }
+    );
+    const data = await dmed.getPatientRecords(patientId2,{from:hospital});
+    assert(data[1][0] === "Not well");
+  })
 });
 

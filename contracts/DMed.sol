@@ -179,6 +179,16 @@ contract DMed is Ownable {
         recordId++;
     }
 
+    // /*
+    //     - this is a developer function
+    //     - not meant to be present on the production contract
+    //     - returns the record mapped to its id
+    // */
+    // function getRecordById(uint _id)public view returns(Record memory) {
+    //     require(records[_id].id != 0,"Record does not exist");
+    //     return records[_id];
+    // }
+
     /*
         - function to add new patients
         - we check if the given patient id aleady exists
