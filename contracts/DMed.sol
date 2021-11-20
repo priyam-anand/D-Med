@@ -7,10 +7,10 @@ import {Ownable} from "./Ownable.sol";
 contract DMed is Ownable {
     struct Hospital {
         uint256 id;
-        bytes32 name;
+        string name;
         string physicalAddress;
         address walletAddress;
-        bytes32 License;
+        string License;
     }
 
     struct Record {
@@ -20,27 +20,27 @@ contract DMed is Ownable {
         string condition;
         string description;
         string allergies;
-        bytes32 Document;
+        string Document;
     }
 
     struct Patient {
         uint256 id;
-        bytes32 name;
-        bytes32 gender;
-        bytes32 bloodGroup;
-        bytes32 DOB;
+        string name;
+        string gender;
+        string bloodGroup;
+        string DOB;
         uint256 phoneNumber;
         uint256[] records;
         string physicalAddress;
-        bytes32 profilePicture;
+        string profilePicture;
         address walletAddress;
     }
 
     struct Organization {
         uint256 id;
-        bytes32 name;
+        string name;
         address walletAddress;
-        bytes32 License;
+        string License;
     }
 
     uint256 public hospitalId = 1;
@@ -96,10 +96,10 @@ contract DMed is Ownable {
         - emits an event for adding new hospital
     */
     function addHospital(
-        bytes32 name,
+        string memory name,
         string memory physicalAddress,
         address walletAddress,
-        bytes32 license
+        string memory license
     ) public onlyAdmin {
         require(
             hospitalToId[walletAddress] == 0,
@@ -162,7 +162,7 @@ contract DMed is Ownable {
         string memory _condition,
         string memory _description,
         string memory _allergies,
-        bytes32 _document
+        string memory _document
     ) public onlyHospital {
         require(patients[_patientId].id != 0, "The patient does not exist");
         Record memory rec = Record(
@@ -188,13 +188,13 @@ contract DMed is Ownable {
     */
     function addNewPatient(
         uint256 _id,
-        bytes32 _name,
-        bytes32 _gender,
-        bytes32 _bloodGroup,
-        bytes32 _dob,
+        string memory _name,
+        string memory _gender,
+        string memory _bloodGroup,
+        string memory _dob,
         uint256 _phoneNumber,
         string memory _physicalAddress,
-        bytes32 _profilePicture,
+        string memory _profilePicture,
         address _walletAddress
     ) public onlyHospital {
         require(patients[_id].id == 0, "Patient already exists");
@@ -223,9 +223,9 @@ contract DMed is Ownable {
         - receive name of organiation, _walletAddress of organization, and IPFS Hash of document
     */
     function addOrganization(
-        bytes32 _name,
+        string memory _name,
         address _walletAddress,
-        bytes32 _license
+        string memory _license
     ) public onlyAdmin {
         require(
             organizationToId[_walletAddress] == 0,
@@ -309,13 +309,13 @@ contract DMed is Ownable {
         onlyAuthorised(_id)
         returns (
             uint256,
-            bytes32,
-            bytes32,
-            bytes32,
-            bytes32,
+            string memory,
+            string memory,
+            string memory,
+            string memory,
             uint256,
             string memory,
-            bytes32,
+            string memory,
             address
         )
     {
@@ -353,7 +353,7 @@ contract DMed is Ownable {
             string[] memory,
             string[] memory,
             string[] memory,
-            bytes32[] memory
+            string[] memory
         )
     {
         Patient memory patient = patients[_id];
@@ -367,7 +367,7 @@ contract DMed is Ownable {
         string[] memory cond = new string[](len);
         string[] memory desc = new string[](len);
         string[] memory aller = new string[](len);
-        bytes32[] memory docs = new bytes32[](len);
+        string[] memory docs = new string[](len);
 
         for (uint256 i = 0; i < rec.length; i++) {
             Record memory curr = records[rec[i]];

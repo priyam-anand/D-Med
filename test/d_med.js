@@ -86,10 +86,34 @@ contract("DMed", function (accounts) {
   });
 
   it("should remove admin", async () => {
-    await dmed.removeAdmin(admin[0],{from:owner});
+    await dmed.removeAdmin(admin[0], { from: owner });
     const getAdmin = await dmed.isAdmin(admin[0]);
     assert(getAdmin === false);
   })
-});
 
 /*------------------Dmed contract test-----------------*/
+
+  //  Hospital related tests
+  it("should not add hospital if not called by admin", async () => {
+    await expectRevert(
+      dmed.addHospital("Hospital1", "physical address of hospital", accounts[3], "IPFS hash of license", { from: accounts[3] })
+      , "Only Admin"
+    )
+  });
+
+  it("should add new hospital", async () => {
+    await dmed.addHospital("Hospital1", "physical address of hospital", accounts[3], "IPFS hash of license", { from: admin[0] });
+    const hospital = await dmed.getHospitalById(1);
+    assert(hospital.name === "Hospital1");
+  });
+
+  it("should not add hospital if already registered", async () => {
+    await dmed.addHospital("Hospital1", "physical address of hospital", accounts[3], "IPFS hash of license", { from: admin[0] });
+    await expectRevert(
+      dmed.addHospital("Hospital1", "physical address of hospital", accounts[3], "IPFS hash of license", { from: admin[0] })
+      , "Already registered as an hospital"
+    )
+  });
+
+});
+
