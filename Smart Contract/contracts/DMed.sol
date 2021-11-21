@@ -376,7 +376,7 @@ contract DMed is Ownable {
 
     /*
         - function to get all the records of the given patient
-        - this function is callable by only either a registered hospital or an authorised address
+        - this function is callable by only either a registered hospital or an authorised address or the patient itself
         - it checks if the patient with the given id exists or not
         - it checks if the number of records of the given patient is greater than 0 or not
         - we create an array for each of the attributes
@@ -425,7 +425,8 @@ contract DMed is Ownable {
         uint256 hosId = hospitalToId[msg.sender];
         require(
             (authorised[_id][msg.sender] == true) ||
-                (hosId != 0 && hospitals[hosId].id != 0),
+                (hosId != 0 && hospitals[hosId].id != 0) ||
+                (_id != 0 && patients[_id].walletAddress == msg.sender),
             "Only authorised addressed"
         );
         _;

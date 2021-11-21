@@ -345,6 +345,34 @@ contract("DMed", function (accounts) {
     )
   });
 
+  it("should get patient details if called by patient itself", async () => {
+    const hospital = accounts[3];
+    const patient = accounts[4];
+    await dmed.addHospital(
+      "Hospital1",
+      "physical address of hospital",
+      hospital,
+      "IPFS hash of license",
+      { from: admin[0] }
+    );
+    const patientId = 9685;
+    await dmed.addNewPatient(
+      patientId
+      , "John"
+      , "Male"
+      , "B+"
+      , "12/1/1989"
+      , 841706
+      , "Physical Address"
+      , "IPFS Hash of profile picture"
+      , patient
+      , { from: hospital }
+    );
+
+    const currPatient = await dmed.getPatientDetails(patientId,{from:patient});
+    assert(currPatient[1] === "John");
+  })
+
   // Authorization realated tests
   it("should not add auth by address if not called by paitent", async () => {
     await expectRevert(
