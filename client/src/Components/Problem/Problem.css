@@ -1,0 +1,64 @@
+
+.about .icon-boxes h4 {
+    font-size: 18px;
+    color: black;
+    /* margin-bottom: 15px; */
+  }
+  .about .icon-boxes h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #2c4964;
+    margin-bottom: 15px;
+  }
+  .about .icon-box {
+    margin-top: 40px;
+  }
+  .about .icon-box .icon {
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border: 2px solid #8dc2f1;
+    border-radius: 50px;
+    transition: 0.5s;
+  }
+  .about .icon-box .icon i {
+    color: #1977cc;
+    font-size: 32px;
+  }
+  .about .icon-box:hover .icon {
+    background: #1977cc;
+    border-color: #1977cc;
+  }
+  .about .icon-box:hover .icon i {
+    color: #fff;
+  }
+  .about .icon-box .title {
+    margin-left: 85px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    font-size: 18px;
+  }
+  .about .icon-box .title a {
+    color: #343a40;
+    transition: 0.3s;
+  }
+  .about .icon-box .title a:hover {
+    color: #1977cc;
+  }
+  .about .icon-box .description {
+    margin-left: 85px;
+    line-height: 24px;
+    font-size: 14px;
+  }
+  .about .video-box {
+    background: url("../../assets/centralized.jpg") center center no-repeat;
+    background-size: cover;
+    min-height: 500px;
+  }
+  
+  
+  
+  

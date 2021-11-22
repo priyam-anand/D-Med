@@ -1,6 +1,7 @@
 import React,{useState,useEffect,useRef} from 'react'
 import "./Info.css";
 import CLOUDS from 'vanta/dist/vanta.clouds.min'
+import {Link} from "react-router-dom";
 
 const Info = () => {
 
@@ -30,7 +31,9 @@ const Info = () => {
                 <div className="container">
                     <h1>Welcome to D-Med</h1>
                     <h2>The Future of medical records is BLOCKCHAIN</h2>
-                    <a href="#about" className="btn-get-started scrollto">Get Started</a>
+                    <Link to="/learn-more" className="btn-get-started">
+                        Get Started
+                    </Link>
                 </div>
             </div>
         </>

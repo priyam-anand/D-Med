@@ -1,6 +1,7 @@
 import React from 'react'
 import "./WhyUs.css";
 import { Icon } from '@iconify/react';
+import { Link } from 'react-router-dom';
 
 const WhyUs = () => {
     return (
@@ -16,7 +17,9 @@ const WhyUs = () => {
                                     Asperiores dolores sed et. Tenetur quia eos. Autem tempore quibusdam vel necessitatibus optio ad corporis.
                                 </p>
                                 <div className="text-center">
-                                    <a href="#" className="more-btn">Learn More <i className="bx bx-chevron-right"></i></a>
+                                    <Link to="/learn-more" className="more-btn">
+                                        {`Learn More >`}
+                                    </Link>
                                 </div>
                             </div>
                         </div>
