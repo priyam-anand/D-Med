@@ -3,20 +3,30 @@ import Navbar from './Components/Navbar/Navbar'
 import Home from "./Pages/Home/Home";
 import { Route, Switch } from 'react-router-dom';
 import About from './Pages/About/About';
+import Services from './Pages/Services/Services';
+import Dashboard from './Pages/Dashboard/Dashboard';
+import Footer from './Components/Footer/Footer';
 
 const App = () => {
   return (
     <>
-      <Navbar/>
+      <Navbar />
       <Switch>
         <Route exact path="/">
-          <Home/>
+          <Home />
         </Route>
         <Route exact path="/about">
-          <About/>
+          <About />
         </Route>
-        
+        <Route exact path="/services">
+          <Services />
+        </Route>
+        <Route exact path="/dashboard">
+          <Dashboard />
+        </Route>
       </Switch>
+      <Footer />
+
     </>
   )
 }

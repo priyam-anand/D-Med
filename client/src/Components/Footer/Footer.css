@@ -1,0 +1,84 @@
+#footer {
+  box-shadow: 5px 0px 15px rgba(0, 0, 0, 0.1);
+  height: 10rem;
+  color: #444444;
+  font-size: 14px;
+  background-image: linear-gradient( #e2f1ff,white);
+  display: flex;
+  flex-direction: column;
+}
+.bottom{
+  width: 100%;
+  height: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.brand{
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+.inner-head{
+  height: 100%;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.outer-head{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.ul{
+  padding-top: 1rem;
+  font-size: 16px;
+}
+.inner-head h3{
+  padding-top: 1rem;
+}
+.copy-right{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.top{
+  width: 100%;
+  height: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bottom-icons{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.right-head{
+  padding: 1rem 5rem;
+  text-decoration: underline;
+  height: 20%;
+  width: 100%;
+}
+
+.icons-container{
+  display: flex;
+  height: 75%;
+  width: 100%;
+  align-items: center;
+  padding-left: 5rem;
+}
+
+.icons-container a{
+  padding: 0.75rem;
+  font-size: 24px;
+}
