@@ -1,0 +1,45 @@
+.what-is-bc{
+    margin-top: 3rem;
+    width: 100vw;
+    display: flex;
+    padding: 3rem 2rem;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: #f1f7fd;
+}
+.what-is-bc h1{
+    font-weight: 700;
+    padding: 1rem;
+}
+.bc{
+    text-align: center;
+    max-width: 1000px;
+    padding-bottom: 1rem;
+}
+
+.bc-1{
+    text-align: left;
+    max-width: 1000px;
+    padding-bottom: 1rem;
+}
+
+.takeaways{
+    font-weight: 600;
+    padding-top: 2rem;
+}
+
+.what-is-eth h1{
+    font-weight: 700;
+    padding-bottom: 0.5rem;
+}
+
+.what-is-eth{
+    margin-top: 1rem;
+    width: 100vw;
+    display: flex;
+    padding: 3rem 2rem;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}

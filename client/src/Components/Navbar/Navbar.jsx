@@ -31,8 +31,8 @@ const Navbar = () => {
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/contact" className="nav-link scrollto">
-                                    Contact
+                                <Link to="/dashboard" className="nav-link scrollto">
+                                    Dashboard
                                 </Link>
                             </li>
                         </ul>
