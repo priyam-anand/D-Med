@@ -4,8 +4,9 @@ import Home from "./Pages/Home/Home";
 import { Route, Switch } from 'react-router-dom';
 import About from './Pages/About/About';
 import Services from './Pages/Services/Services';
-import Dashboard from './Pages/Dashboard/Dashboard';
 import Footer from './Components/Footer/Footer';
+import Dashboard from './Pages/Dashboards/Main/MainDashBoard';
+import PublicDashBoard from './Pages/Dashboards/Public/PublicDashBorad';
 
 const App = () => {
   return (
@@ -22,7 +23,25 @@ const App = () => {
           <Services />
         </Route>
         <Route exact path="/dashboard">
-          <Dashboard />
+          <Dashboard/>
+        </Route>
+        <Route exact path="/dashboard/public">
+          <PublicDashBoard/>
+        </Route>
+        <Route exact path="/dashboard/authorized">
+
+        </Route>
+        <Route exact path="/dashboard/hospital">
+
+        </Route>
+        <Route exact path="/dashboard/patient">
+
+        </Route>
+        <Route exact path="/dashboard/admin">
+
+        </Route>
+        <Route exact path="/dashboard/owner">
+
         </Route>
       </Switch>
       <Footer />

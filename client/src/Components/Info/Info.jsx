@@ -1,7 +1,6 @@
 import React,{useState,useEffect,useRef} from 'react'
 import "./Info.css";
 import CLOUDS from 'vanta/dist/vanta.clouds.min'
-import {Link} from "react-router-dom";
 
 const Info = () => {
 
@@ -12,8 +11,8 @@ const Info = () => {
             setVantaEffect(
                 CLOUDS({
                     el: myRef.current,
-                    mouseControls: true,
-                    touchControls: true,
+                    mouseControls: false,
+                    touchControls: false,
                     gyroControls: false,
                     minHeight: 200.00,
                     minWidth: 200.00
@@ -31,9 +30,6 @@ const Info = () => {
                 <div className="container">
                     <h1>Welcome to D-Med</h1>
                     <h2>The Future of medical records is BLOCKCHAIN</h2>
-                    <Link to="/learn-more" className="btn-get-started">
-                        Get Started
-                    </Link>
                 </div>
             </div>
         </>

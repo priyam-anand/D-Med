@@ -1,0 +1,202 @@
+.appointment{
+    margin-top: 5rem;
+}
+.appointment .php-email-form {
+    width: 100%;
+  }
+
+  .appointment .php-email-form .form-group {
+    padding-bottom: 8px;
+  }
+  .appointment .php-email-form .validate {
+    display: none;
+    color: red;
+    margin: 0 0 15px 0;
+    font-weight: 400;
+    font-size: 13px;
+  }
+  .appointment .php-email-form .error-message {
+    display: none;
+    color: #fff;
+    background: #ed3c0d;
+    text-align: left;
+    padding: 15px;
+    font-weight: 600;
+  }
+  .appointment .php-email-form .error-message br + br {
+    margin-top: 25px;
+  }
+  .appointment .php-email-form .sent-message {
+    display: none;
+    color: #fff;
+    background: #18d26e;
+    text-align: center;
+    padding: 15px;
+    font-weight: 600;
+  }
+  .appointment .php-email-form .loading {
+    display: none;
+    background: #fff;
+    text-align: center;
+    padding: 15px;
+  }
+  .appointment .php-email-form .loading:before {
+    content: "";
+    display: inline-block;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    margin: 0 10px -6px 0;
+    border: 3px solid #18d26e;
+    border-top-color: #eee;
+    -webkit-animation: animate-loading 1s linear infinite;
+    animation: animate-loading 1s linear infinite;
+  }
+  .appointment .php-email-form input, .appointment .php-email-form textarea, .appointment .php-email-form select {
+    border-radius: 0;
+    box-shadow: none;
+    font-size: 14px;
+    padding: 10px !important;
+  }
+  .appointment .php-email-form input:focus, .appointment .php-email-form textarea:focus, .appointment .php-email-form select:focus {
+    border-color: #1977cc;
+  }
+  .appointment .php-email-form input, .appointment .php-email-form select {
+    height: 44px;
+  }
+  .appointment .php-email-form textarea {
+    padding: 10px 12px;
+  }
+  .appointment .php-email-form button[type=submit] {
+    background: #1977cc;
+    border: 0;
+    padding: 10px 35px;
+    color: #fff;
+    transition: 0.4s;
+    border-radius: 50px;
+  }
+  .appointment .php-email-form button[type=submit]:hover {
+    background: #1c84e3;
+  }
+
+  
+.get-owner{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.get-owner h4{
+  font-weight: 700;
+  margin-left: 4rem;
+}
+
+.get-owner button{
+    background: #1977cc;
+    border: 0;
+    padding: 0.5rem 1rem;
+    color: #fff;
+    transition: 0.4s;
+    border-radius: 1rem;
+    margin: 1.5rem 4rem;  
+}
+
+  .get-owner button:hover{
+    background: #1c84e3;
+}
+
+.get-owner span{
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.check-admin{
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.check-admin h4{
+  font-weight: 700;
+  margin-left: 4rem;
+}
+
+.check-admin button{
+    background: #1977cc;
+    border: 0;
+    padding: 0.5rem 1rem;
+    color: #fff;
+    transition: 0.4s;
+    border-radius: 1rem;
+}
+
+.check-admin button:hover{
+    background: #1c84e3;
+}
+
+.is-admin{
+  font-weight: 500;
+  font-size: 18px;
+  margin-left: 4rem;
+  padding-top: 1rem;
+}
+
+.check-admin form{
+  margin-top: 1rem;
+  margin-left: 4rem;
+}
+
+.get-details{
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.get-details h4{
+  font-weight: 700;
+  margin-left: 4rem;
+}
+
+.get-details button{
+    background: #1977cc;
+    border: 0;
+    padding: 0.5rem 1rem;
+    color: #fff;
+    transition: 0.4s;
+    border-radius: 1rem;
+}
+
+.get-details button:hover{
+    background: #1c84e3;
+}
+
+.get-details form{
+  margin-top: 1rem;
+  margin-left: 4rem;
+}
+
+.details{
+  margin-left: 4rem;
+  padding-top: 2rem;
+}
+
+.details li{
+  list-style: none;
+  font-size: 18px;
+  padding-top: 00.5rem;
+}
+
+.details li span{
+  font-weight: 600;
+}
+.details li img{
+  height: 10rem;
+  width: 15rem;
+}
+
+.license{
+  display: flex;
+  align-items: center;
+}

@@ -4,9 +4,6 @@
     margin-bottom: -200px;
     z-index: -1;
   }
-  #hero .container {
-    position: relative;
-  }
   #hero h1 {
     margin: 0;
     font-size: 48px;
@@ -19,24 +16,4 @@
     color: #2c4964;
     margin: 10px 0 0 0;
     font-size: 20px;
-  }
-
-  #hero .btn-get-started:hover {
-    background: #3291e6;
-    cursor: pointer;
-  }
-
-  .btn-get-started {
-    font-family: 'Raleway', sans-serif;
-    text-transform: uppercase;
-    font-weight: 500;
-    font-size: 14px;
-    letter-spacing: 1px;
-    display: inline-block;
-    padding: 12px 35px;
-    margin-top: 30px;
-    border-radius: 50px;
-    transition: 0.5s;
-    color: #fff;
-    background: #1977cc;
   }

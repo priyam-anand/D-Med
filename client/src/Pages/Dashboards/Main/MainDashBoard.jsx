@@ -1,5 +1,5 @@
 import React from 'react'
-import "./Dashboard.css";
+import "./MainDashBoard.css";
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
 
@@ -16,7 +16,7 @@ const Dashboard = () => {
                         <div className="col-lg-4 col-md-6 d-flex align-items-stretch icon-box-wrapper">
                             <div className="icon-box">
                                 <div className="icon"><Icon icon="si-glyph:person-public"  className="i"/></div>
-                                <h4><Link to="/dashboard">Public</Link></h4>
+                                <h4><Link to="/dashboard/public">Public</Link></h4>
                                 <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
                             </div>
                         </div>

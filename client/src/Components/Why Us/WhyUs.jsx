@@ -17,7 +17,7 @@ const WhyUs = () => {
                                     Asperiores dolores sed et. Tenetur quia eos. Autem tempore quibusdam vel necessitatibus optio ad corporis.
                                 </p>
                                 <div className="text-center">
-                                    <Link to="/learn-more" className="more-btn">
+                                    <Link to="/about" className="more-btn">
                                         {`Learn More >`}
                                     </Link>
                                 </div>
