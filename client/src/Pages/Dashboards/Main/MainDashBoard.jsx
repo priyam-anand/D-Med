@@ -24,7 +24,7 @@ const Dashboard = () => {
                         <div className="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
                             <div className="icon-box">
                                 <div className="icon"><Icon icon="whh:authentication" className="i"/></div>
-                                <h4><Link to="/dashboard">Authorized</Link></h4>
+                                <h4><Link to="/dashboard/authorized">Authorized</Link></h4>
                                 <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p>
                             </div>
                         </div>

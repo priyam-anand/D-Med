@@ -1,0 +1,29 @@
+.rec{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.record img{
+    height: 20rem;
+    width: 18rem;
+    margin-top: 5rem;
+}
+
+.details-record{
+    margin-left: 4rem;
+    padding-top: 2rem;
+  }
+  
+  .details-record li{
+    list-style: none;
+    font-size: 18px;
+    padding-top: 00.5rem;
+  }
+  
+  .details-record li span{
+    font-weight: 600;
+  }
+  .details-record li p{
+    margin-left: 1rem;
+    }
+  

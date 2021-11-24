@@ -1,0 +1,30 @@
+.sec{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.patient img{
+    height: 10rem;
+    width: 10rem;
+    margin-top: 5rem;
+}
+
+.details-patient{
+    margin-left: 4rem;
+    padding-top: 2rem;
+  }
+  
+  .details-patient li{
+    list-style: none;
+    font-size: 18px;
+    padding-top: 00.5rem;
+  }
+  
+  .details-patient li span{
+    font-weight: 600;
+  }
+  .details-patient li img{
+    height: 10rem;
+    width: 15rem;
+  }
+  

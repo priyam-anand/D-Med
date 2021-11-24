@@ -7,6 +7,7 @@ import Services from './Pages/Services/Services';
 import Footer from './Components/Footer/Footer';
 import Dashboard from './Pages/Dashboards/Main/MainDashBoard';
 import PublicDashBoard from './Pages/Dashboards/Public/PublicDashBorad';
+import Auth from './Pages/Dashboards/Auth/Auth';
 
 const App = () => {
   return (
@@ -29,7 +30,7 @@ const App = () => {
           <PublicDashBoard/>
         </Route>
         <Route exact path="/dashboard/authorized">
-
+          <Auth/>
         </Route>
         <Route exact path="/dashboard/hospital">
 

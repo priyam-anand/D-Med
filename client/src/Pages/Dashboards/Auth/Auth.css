@@ -1,0 +1,57 @@
+.auth-dash-wrapper{
+    margin-top: 5rem;
+}
+
+.get-details-patient{
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.get-details-patient h4{
+  font-weight: 700;
+  margin-left: 4rem;
+}
+
+.get-details-patient button{
+    background: #1977cc;
+    border: 0;
+    padding: 0.5rem 1rem;
+    color: #fff;
+    transition: 0.4s;
+    border-radius: 1rem;
+}
+
+.get-details-patient button:hover{
+    background: #1c84e3;
+}
+
+.get-details-patient form{
+  margin-top: 1rem;
+  margin-left: 4rem;
+}
+
+.details{
+  margin-left: 4rem;
+  padding-top: 2rem;
+}
+
+.details li{
+  list-style: none;
+  font-size: 18px;
+  padding-top: 00.5rem;
+}
+
+.details li span{
+  font-weight: 600;
+}
+.details li img{
+  height: 10rem;
+  width: 15rem;
+}
+
+.license{
+  display: flex;
+  align-items: center;
+}
