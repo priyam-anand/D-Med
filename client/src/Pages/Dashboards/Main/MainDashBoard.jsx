@@ -17,7 +17,7 @@ const Dashboard = () => {
                             <div className="icon-box">
                                 <div className="icon"><Icon icon="si-glyph:person-public"  className="i"/></div>
                                 <h4><Link to="/dashboard/public">Public</Link></h4>
-                                <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
+                                <p>These function are open to all and do not need any special privileges to access.</p>
                             </div>
                         </div>
 
@@ -25,7 +25,7 @@ const Dashboard = () => {
                             <div className="icon-box">
                                 <div className="icon"><Icon icon="whh:authentication" className="i"/></div>
                                 <h4><Link to="/dashboard/authorized">Authorized</Link></h4>
-                                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p>
+                                <p>These funtions are for the authorized organization only. Make sure that you have the correct access rights before you enter.</p>
                             </div>
                         </div>
 
@@ -33,7 +33,7 @@ const Dashboard = () => {
                             <div className="icon-box">
                                 <div className="icon"><Icon icon="healthicons:hospital-outline" className="i"/></div>
                                 <h4><Link to="/dashboard/hospital">Hospital</Link></h4>
-                                <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
+                                <p>These funtions are for the verified hospitals only. Make sure that you have the correct access rights before you enter.</p>
                             </div>
                         </div>
 
@@ -41,7 +41,7 @@ const Dashboard = () => {
                             <div className="icon-box">
                                 <div className="icon"><Icon icon="fluent:patient-32-filled" className="i"/></div>
                                 <h4><Link to="/dashboard/patient">Patient</Link></h4>
-                                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
+                                <p>These funtions are for registerd patients only. Make sure that you have the correct access rights before you enter.</p>
                             </div>
                         </div>
 
@@ -49,7 +49,7 @@ const Dashboard = () => {
                             <div className="icon-box">
                                 <div className="icon"><Icon icon="wpf:administrator" className="i"/></div>
                                 <h4><Link to="/dashboard/admin">Admins</Link></h4>
-                                <p>Quis consequatur saepe eligendi voluptatem consequatur dolor consequuntur</p>
+                                <p>These funtions are for the admins only. Make sure that you have the correct access rights before you enter.</p>
                             </div>
                         </div>
 
@@ -57,7 +57,7 @@ const Dashboard = () => {
                             <div className="icon-box">
                                 <div className="icon"><Icon icon="eos-icons:admin" className="i"/></div>
                                 <h4><Link to="/dashboard/owner">Owner</Link></h4>
-                                <p>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
+                                <p>These funtions are for the Owner only. Make sure that you are the owner before you access.</p>
                             </div>
                         </div>
 
