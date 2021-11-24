@@ -2,7 +2,6 @@
 .about-2 .icon-boxes h4 {
     font-size: 18px;
     color: black;
-    /* margin-bottom: 15px; */
   }
   .about-2 .icon-boxes h2 {
     font-size: 28px;
@@ -24,7 +23,7 @@
     border-radius: 50px;
     transition: 0.5s;
   }
-  .about-2 .icon-box .icon i {
+  .about-2 .icon-box .icon .pro-sol {
     color: #1977cc;
     font-size: 32px;
   }
@@ -32,7 +31,7 @@
     background: #1977cc;
     border-color: #1977cc;
   }
-  .about-2 .icon-box:hover .icon i {
+  .about-2 .icon-box:hover .icon .pro-sol {
     color: #fff;
   }
   .about-2 .icon-box .title {

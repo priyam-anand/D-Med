@@ -8,7 +8,7 @@ const Intro = () => {
                     About Us
                 </h1>
                 <span className="intro">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quibusdam error velit facilis, impedit officiis eos placeat soluta at ea, earum sed voluptates saepe beatae doloremque rem accusantium autem temporibus architecto?
+                    D-Med is a decentralized solution for Electronic Medical Records sharing systems (EMR). It uses Ethereum network and IPFS technology at its core, giving you complete control of your data. Only authorized people and registerd Medical Institues can acces your records.
                 </span>
             </div>
         </>

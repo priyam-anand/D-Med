@@ -24,7 +24,7 @@
     border-radius: 50px;
     transition: 0.5s;
   }
-  .about .icon-box .icon i {
+  .pro-sol {
     color: #1977cc;
     font-size: 32px;
   }
@@ -32,7 +32,7 @@
     background: #1977cc;
     border-color: #1977cc;
   }
-  .about .icon-box:hover .icon i {
+  .about .icon-box:hover .icon .pro-sol {
     color: #fff;
   }
   .about .icon-box .title {
