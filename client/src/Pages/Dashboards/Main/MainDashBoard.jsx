@@ -32,7 +32,7 @@ const Dashboard = () => {
                         <div className="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
                             <div className="icon-box">
                                 <div className="icon"><Icon icon="healthicons:hospital-outline" className="i"/></div>
-                                <h4><Link to="/dashboard">Hospital</Link></h4>
+                                <h4><Link to="/dashboard/hospital">Hospital</Link></h4>
                                 <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
                             </div>
                         </div>
@@ -48,7 +48,7 @@ const Dashboard = () => {
                         <div className="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
                             <div className="icon-box">
                                 <div className="icon"><Icon icon="wpf:administrator" className="i"/></div>
-                                <h4><Link to="/dashboard">Admins</Link></h4>
+                                <h4><Link to="/dashboard/admin">Admins</Link></h4>
                                 <p>Quis consequatur saepe eligendi voluptatem consequatur dolor consequuntur</p>
                             </div>
                         </div>

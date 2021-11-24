@@ -10,6 +10,8 @@ import PublicDashBoard from './Pages/Dashboards/Public/PublicDashBorad';
 import Auth from './Pages/Dashboards/Auth/Auth';
 import Owner from './Pages/Dashboards/Owner/Owner';
 import Patient from './Pages/Dashboards/Patient/Patient';
+import Admin from './Pages/Dashboards/Admin/Admin';
+import Hospital from './Pages/Dashboards/Hospital/Hospital';
 
 const App = () => {
   return (
@@ -35,13 +37,13 @@ const App = () => {
           <Auth/>
         </Route>
         <Route exact path="/dashboard/hospital">
-
+          <Hospital/>
         </Route>
         <Route exact path="/dashboard/patient">
           <Patient/>
         </Route>
         <Route exact path="/dashboard/admin">
-
+          <Admin/>
         </Route>
         <Route exact path="/dashboard/owner">
           <Owner/>
