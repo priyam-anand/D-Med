@@ -32,7 +32,7 @@ const BcEthDmed = () => {
                             Decentralized blockchains are immutable, which means that the data entered is irreversible. For Bitcoin, this means that transactions are permanently recorded and viewable to anyone.
                         </li>
                         <li>
-                            <a href="https://en.wikipedia.org/wiki/Blockchain" style={{"textDecoration":"underline"}} target="_blank">
+                            <a href="https://en.wikipedia.org/wiki/Blockchain" style={{"textDecoration":"underline"}} target="_blank" rel="noreferrer">
                                 Know more about Block Chain
                             </a>
                         </li>
@@ -48,7 +48,7 @@ const BcEthDmed = () => {
 
                     Ethereum was conceived in 2013 by programmer Vitalik Buterin.In 2014, development work commenced and was crowdfunded, and the network went live on 30 July 2015.The platform allows anyone to deploy permanent and immutable decentralized applications onto it, with which users can interact. Decentralized finance (DeFi) applications provide a broad array of financial services without the need for typical financial intermediaries like brokerages, exchanges, or banks, such as allowing cryptocurrency users to borrow against their holdings or lend them out for interest.Ethereum also allows for the creation and exchange of NFTs, which are non-interchangeable tokens connected to digital works of art or other real-world items and sold as unique digital property. Additionally, many other cryptocurrencies operate as ERC-20 tokens on top of the Ethereum blockchain and have utilized the platform for initial coin offerings.
                 </div>
-                <a href="https://ethereum.org/en/" style={{"textDecoration":"underline"}} target="_blank">Learn More about Ethereum</a>
+                <a href="https://ethereum.org/en/" style={{"textDecoration":"underline"}} target="_blank" rel="noreferrer">Learn More about Ethereum</a>
             </div>
         </>
     )

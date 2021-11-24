@@ -2,11 +2,19 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    border-left: 1px solid gray;
+}
+.record{
+  border: 1px solid grey;
+  border-radius: 2rem;
+  margin: 2rem 0rem;
+  background-color: #f1f7fd;
 }
 .record img{
     height: 20rem;
     width: 18rem;
-    margin-top: 5rem;
+    /* margin-top: 5rem; */
 }
 
 .details-record{

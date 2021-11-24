@@ -8,6 +8,8 @@ import Footer from './Components/Footer/Footer';
 import Dashboard from './Pages/Dashboards/Main/MainDashBoard';
 import PublicDashBoard from './Pages/Dashboards/Public/PublicDashBorad';
 import Auth from './Pages/Dashboards/Auth/Auth';
+import Owner from './Pages/Dashboards/Owner/Owner';
+import Patient from './Pages/Dashboards/Patient/Patient';
 
 const App = () => {
   return (
@@ -36,13 +38,13 @@ const App = () => {
 
         </Route>
         <Route exact path="/dashboard/patient">
-
+          <Patient/>
         </Route>
         <Route exact path="/dashboard/admin">
 
         </Route>
         <Route exact path="/dashboard/owner">
-
+          <Owner/>
         </Route>
       </Switch>
       <Footer />

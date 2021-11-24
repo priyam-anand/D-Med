@@ -40,7 +40,7 @@ const Dashboard = () => {
                         <div className="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
                             <div className="icon-box">
                                 <div className="icon"><Icon icon="fluent:patient-32-filled" className="i"/></div>
-                                <h4><Link to="/dashboard">Patient</Link></h4>
+                                <h4><Link to="/dashboard/patient">Patient</Link></h4>
                                 <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
                             </div>
                         </div>
@@ -56,7 +56,7 @@ const Dashboard = () => {
                         <div className="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
                             <div className="icon-box">
                                 <div className="icon"><Icon icon="eos-icons:admin" className="i"/></div>
-                                <h4><Link to="/dashboard">Owner</Link></h4>
+                                <h4><Link to="/dashboard/owner">Owner</Link></h4>
                                 <p>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
                             </div>
                         </div>

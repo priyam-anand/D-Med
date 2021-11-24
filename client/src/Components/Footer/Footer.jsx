@@ -33,10 +33,10 @@ const Footer = () => {
                             Some Important Links
                         </h5>
                         <div className="icons-container">
-                            <a href="https://github.com/priyam-anand/D-Med" target="_blank">
+                            <a href="https://github.com/priyam-anand/D-Med" target="_blank" rel="noreferrer">
                                 <Icon icon="akar-icons:github-fill" color="#1977cc" />
                             </a>
-                            <a href="https://www.linkedin.com/in/priyam27/" target="_blank">
+                            <a href="https://www.linkedin.com/in/priyam27/" target="_blank" rel="noreferrer">
                                 <Icon icon="bi:linkedin" color="#1977cc" />
                             </a>
                             <a href="https://discord.com/" target="_parent">

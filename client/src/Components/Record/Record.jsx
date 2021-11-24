@@ -37,9 +37,6 @@ const Record = (_hospitalId,_condition_,_description,_allergies,_document) => {
                     </div>
                     <div className="col-md-4 rec">
                         <img src={record} alt="no record"/>
-                        <span>
-                            Patient Name
-                        </span>
                     </div>
                 </div>
             </div>
