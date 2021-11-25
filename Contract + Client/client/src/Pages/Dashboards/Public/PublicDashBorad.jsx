@@ -5,9 +5,9 @@ import License2 from "../../../assets/license2.jpg"
 const PublicDashBoard = () => {
     return (
         <>
-            <section class="appointment ">
-                <div class="container">
-                    <div class="section-title">
+            <section className="appointment ">
+                <div className="container">
+                    <div className="section-title">
                         <h2>Public Dashboard</h2>
                         <p>
                             Explore the different features avaliable for public use.
@@ -32,11 +32,11 @@ const PublicDashBoard = () => {
                         </h4>
                         <div>
                             <form>
-                                <div class="row">
-                                    <div class="col-md-4 form-group py-1">
-                                        <input type="text" name="address" class="form-control" id="admin-address" placeholder="Admin's Address"/>
+                                <div className="row">
+                                    <div className="col-md-4 form-group py-1">
+                                        <input type="text" name="address" className="form-control" id="admin-address" placeholder="Admin's Address"/>
                                     </div>
-                                    <div class="col-md-4 form-group mt-3 mt-md-0 py-1">
+                                    <div className="col-md-4 form-group mt-3 mt-md-0 py-1">
                                         <button type="submit">Click Here</button>
                                     </div>
                                 </div>
@@ -53,14 +53,14 @@ const PublicDashBoard = () => {
                         </h4>
                         <div>
                             <form>
-                                <div class="row">
-                                    <div class="col-md-4 form-group py-1">
-                                        <input type="text" name="address" class="form-control" id="hospital-address" placeholder="Hospital's Address"/>
+                                <div className="row">
+                                    <div className="col-md-4 form-group py-1">
+                                        <input type="text" name="address" className="form-control" id="hospital-address" placeholder="Hospital's Address"/>
                                     </div>
-                                    <div class="col-md-4 form-group py-1">
-                                        <input type="number" name="id" class="form-control" id="hospital-id" placeholder="Hospital's Id"/>
+                                    <div className="col-md-4 form-group py-1">
+                                        <input type="number" name="id" className="form-control" id="hospital-id" placeholder="Hospital's Id"/>
                                     </div>
-                                    <div class="col-md-4 form-group mt-3 mt-md-0 py-1">
+                                    <div className="col-md-4 form-group mt-3 mt-md-0 py-1">
                                         <button type="submit">Click Here</button>
                                     </div>
                                 </div>
@@ -91,14 +91,14 @@ const PublicDashBoard = () => {
                         </h4>
                         <div>
                             <form>
-                                <div class="row">
-                                    <div class="col-md-4 form-group py-1">
-                                        <input type="text" name="address" class="form-control" id="hospital-address" placeholder="Hospital's Address"/>
+                                <div className="row">
+                                    <div className="col-md-4 form-group py-1">
+                                        <input type="text" name="address" className="form-control" id="hospital-address" placeholder="Hospital's Address"/>
                                     </div>
-                                    <div class="col-md-4 form-group py-1">
-                                        <input type="number" name="id" class="form-control" id="hospital-id" placeholder="Hospital's Id"/>
+                                    <div className="col-md-4 form-group py-1">
+                                        <input type="number" name="id" className="form-control" id="hospital-id" placeholder="Hospital's Id"/>
                                     </div>
-                                    <div class="col-md-4 form-group mt-3 mt-md-0 py-1">
+                                    <div className="col-md-4 form-group mt-3 mt-md-0 py-1">
                                         <button type="submit">Click Here</button>
                                     </div>
                                 </div>
@@ -132,14 +132,14 @@ const PublicDashBoard = () => {
                         </h4>
                         <div>
                             <form>
-                                <div class="row">
-                                    <div class="col-md-4 form-group py-1">
-                                        <input type="text" name="address" class="form-control" id="hospital-address" placeholder="Hospital's Address"/>
+                                <div className="row">
+                                    <div className="col-md-4 form-group py-1">
+                                        <input type="text" name="address" className="form-control" id="hospital-address" placeholder="Hospital's Address"/>
                                     </div>
-                                    <div class="col-md-4 form-group py-1">
-                                        <input type="number" name="id" class="form-control" id="hospital-id" placeholder="Hospital's Id"/>
+                                    <div className="col-md-4 form-group py-1">
+                                        <input type="number" name="id" className="form-control" id="hospital-id" placeholder="Hospital's Id"/>
                                     </div>
-                                    <div class="col-md-4 form-group mt-3 mt-md-0 py-1">
+                                    <div className="col-md-4 form-group mt-3 mt-md-0 py-1">
                                         <button type="submit">Click Here</button>
                                     </div>
                                 </div>
