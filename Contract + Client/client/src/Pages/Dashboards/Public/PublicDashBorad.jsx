@@ -1,8 +1,51 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import "./PublicDashBoard.css";
 import License1 from "../../../assets/license1.jpg";
 import License2 from "../../../assets/license2.jpg"
+import { getWeb3 } from "../../../utils.js";
+import DMed from "../../../contracts/DMed.json";
+import Loading from '../../../Components/Loading/Loading';
+
 const PublicDashBoard = () => {
+
+    const [web3, setWeb3] = useState(undefined);
+    const [accounts, setAccounts] = useState(undefined);
+    const [contract, setContract] = useState(undefined);
+
+    useEffect(() => {
+        const init = async () => {
+            const web3 = await getWeb3();
+            const accounts = await web3.eth.getAccounts();
+            const networkId = await web3.eth.net.getId();
+            const deployedNetwork = DMed.networks[networkId];
+            const contract = new web3.eth.Contract(
+                DMed.abi,
+                deployedNetwork && deployedNetwork.address,
+            );
+
+            setWeb3(web3);
+            setAccounts(accounts);
+            setContract(contract);
+        }
+        init();
+        window.ethereum.on('accountsChanged', accounts => {
+            setAccounts(accounts);
+        });
+    }, []);
+
+    const isReady = () => {
+
+        return (
+            typeof contract !== 'undefined'
+            && typeof web3 !== 'undefined'
+            && typeof accounts !== 'undefined'
+        );
+    }
+
+    if (!isReady()) {
+        return <Loading />;
+    }
+
     return (
         <>
             <section className="appointment ">
@@ -34,7 +77,7 @@ const PublicDashBoard = () => {
                             <form>
                                 <div className="row">
                                     <div className="col-md-4 form-group py-1">
-                                        <input type="text" name="address" className="form-control" id="admin-address" placeholder="Admin's Address"/>
+                                        <input type="text" name="address" className="form-control" id="admin-address" placeholder="Admin's Address" />
                                     </div>
                                     <div className="col-md-4 form-group mt-3 mt-md-0 py-1">
                                         <button type="submit">Click Here</button>
@@ -55,10 +98,10 @@ const PublicDashBoard = () => {
                             <form>
                                 <div className="row">
                                     <div className="col-md-4 form-group py-1">
-                                        <input type="text" name="address" className="form-control" id="hospital-address" placeholder="Hospital's Address"/>
+                                        <input type="text" name="address" className="form-control" id="hospital-address" placeholder="Hospital's Address" />
                                     </div>
                                     <div className="col-md-4 form-group py-1">
-                                        <input type="number" name="id" className="form-control" id="hospital-id" placeholder="Hospital's Id"/>
+                                        <input type="number" name="id" className="form-control" id="hospital-id" placeholder="Hospital's Id" />
                                     </div>
                                     <div className="col-md-4 form-group mt-3 mt-md-0 py-1">
                                         <button type="submit">Click Here</button>
@@ -80,7 +123,7 @@ const PublicDashBoard = () => {
                                         <span className="col-md-3">Hospital's Ethereum Address :</span> 0x65ad6f4a9d8f65ad4f6a
                                     </li>
                                 </ul>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -93,10 +136,10 @@ const PublicDashBoard = () => {
                             <form>
                                 <div className="row">
                                     <div className="col-md-4 form-group py-1">
-                                        <input type="text" name="address" className="form-control" id="hospital-address" placeholder="Hospital's Address"/>
+                                        <input type="text" name="address" className="form-control" id="hospital-address" placeholder="Hospital's Address" />
                                     </div>
                                     <div className="col-md-4 form-group py-1">
-                                        <input type="number" name="id" className="form-control" id="hospital-id" placeholder="Hospital's Id"/>
+                                        <input type="number" name="id" className="form-control" id="hospital-id" placeholder="Hospital's Id" />
                                     </div>
                                     <div className="col-md-4 form-group mt-3 mt-md-0 py-1">
                                         <button type="submit">Click Here</button>
@@ -119,13 +162,13 @@ const PublicDashBoard = () => {
                                     </li>
                                     <li className="row">
                                         <span className="col-md-3 license">License :</span>
-                                        <img src={License1} alt=""/>
+                                        <img src={License1} alt="" />
                                     </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                
+
                     <div className="get-details">
                         <h4>
                             Get Details of Hospital
@@ -134,10 +177,10 @@ const PublicDashBoard = () => {
                             <form>
                                 <div className="row">
                                     <div className="col-md-4 form-group py-1">
-                                        <input type="text" name="address" className="form-control" id="hospital-address" placeholder="Hospital's Address"/>
+                                        <input type="text" name="address" className="form-control" id="hospital-address" placeholder="Hospital's Address" />
                                     </div>
                                     <div className="col-md-4 form-group py-1">
-                                        <input type="number" name="id" className="form-control" id="hospital-id" placeholder="Hospital's Id"/>
+                                        <input type="number" name="id" className="form-control" id="hospital-id" placeholder="Hospital's Id" />
                                     </div>
                                     <div className="col-md-4 form-group mt-3 mt-md-0 py-1">
                                         <button type="submit">Click Here</button>
@@ -160,7 +203,7 @@ const PublicDashBoard = () => {
                                     </li>
                                     <li className="row">
                                         <span className="col-md-3 license">License :</span>
-                                        <img src={License2} alt=""/>
+                                        <img src={License2} alt="" />
                                     </li>
                                 </ul>
                             </div>
