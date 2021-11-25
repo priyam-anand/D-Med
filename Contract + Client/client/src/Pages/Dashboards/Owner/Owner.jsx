@@ -11,6 +11,9 @@ const Owner = () => {
     const [accounts, setAccounts] = useState(undefined);
     const [contract, setContract] = useState(undefined);
     const history = useHistory();
+    const [addAdmin,setAddAdmin] = useState("");
+    const [removeAdmin,setRemoveAdmin] = useState("");
+    const [transferOwnership,setTransferOwnership] = useState("");
 
     const isReady = () => {
         return (
@@ -48,6 +51,43 @@ const Owner = () => {
         }
     }, [history]);
 
+    const AddAdmin = async (e) => {
+        e.preventDefault();
+        try {
+            await contract.methods.addAdmin(addAdmin).send({from:accounts[0]});
+            window.alert("Admin added successfully");
+        } catch (error) {
+            window.alert("Admin could not be added. Make sure you are the Owner and check the entered Address");
+            console.error(error);
+        }
+        setAddAdmin("");
+    }
+
+    const RemoveAdmin = async (e) => {
+        e.preventDefault();
+        try{
+            await contract.methods.removeAdmin(removeAdmin).send({from:accounts[0]});
+            window.alert("Admin removed successfully");
+        }catch(error)
+        {
+            window.alert("Admin could not be removed. Make sure you are the Owner and check the entered Address");
+            console.error(error);
+        }
+        setRemoveAdmin("");
+    }
+
+    const TransferOwnership = async (e) => {
+        e.preventDefault();
+
+        try {
+            await contract.methods.changeOwner(transferOwnership).send({from:accounts[0]});
+            window.alert("Owner changed successfully");
+        } catch (error) {
+            window.alert("Ownership could not be transferred. Make sure you are the Owner and check the entered Address");
+            console.error(error);
+        }
+    }
+
     if (!isReady()) {
         return <Loading />;
     }
@@ -68,10 +108,10 @@ const Owner = () => {
                             Add new Admin
                         </h4>
                         <div>
-                            <form>
+                            <form onSubmit={AddAdmin}>
                                 <div className="row">
                                     <div className="col-md-4 form-group py-1">
-                                        <input type="text" name="address" className="form-control" id="admin-address" placeholder="Admin's Address" />
+                                        <input type="text" name="address" className="form-control" id="admin-address" placeholder="Admin's Address" value={addAdmin} onChange={e=>setAddAdmin(e.target.value)} required/>
                                     </div>
                                     <div className="col-md-4 form-group mt-3 mt-md-0 py-1">
                                         <button type="submit">Click Here</button>
@@ -86,10 +126,10 @@ const Owner = () => {
                             Remove an Admin
                         </h4>
                         <div>
-                            <form>
+                            <form onSubmit={RemoveAdmin}>
                                 <div className="row">
                                     <div className="col-md-4 form-group py-1">
-                                        <input type="text" name="address" className="form-control" id="admin-rmv-address" placeholder="Admin's Address" />
+                                        <input type="text" name="address" className="form-control" id="admin-rmv-address" placeholder="Admin's Address" value={removeAdmin} onChange={e=>setRemoveAdmin(e.target.value)} required/>
                                     </div>
                                     <div className="col-md-4 form-group mt-3 mt-md-0 py-1">
                                         <button type="submit">Click Here</button>
@@ -104,10 +144,10 @@ const Owner = () => {
                             Transfer Ownership
                         </h4>
                         <div>
-                            <form>
+                            <form onSubmit={TransferOwnership}>
                                 <div className="row">
                                     <div className="col-md-4 form-group py-1">
-                                        <input type="text" name="address" className="form-control" id="owner-address" placeholder="New Owner's Address" />
+                                        <input type="text" name="address" className="form-control" id="owner-address" placeholder="New Owner's Address" value={transferOwnership} onChange={e=>setTransferOwnership(e.target.value)}/>
                                     </div>
                                     <div className="col-md-4 form-group mt-3 mt-md-0 py-1">
                                         <button type="submit">Click Here</button>
