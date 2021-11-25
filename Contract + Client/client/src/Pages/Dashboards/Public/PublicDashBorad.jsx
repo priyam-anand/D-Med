@@ -1,46 +1,55 @@
 import React, { useState, useEffect } from 'react'
 import "./PublicDashBoard.css";
 import License1 from "../../../assets/license1.jpg";
-import License2 from "../../../assets/license2.jpg"
+import License2 from "../../../assets/license2.jpg";
+
 import { getWeb3 } from "../../../utils.js";
 import DMed from "../../../contracts/DMed.json";
 import Loading from '../../../Components/Loading/Loading';
+import { useHistory } from 'react-router-dom';
 
 const PublicDashBoard = () => {
 
     const [web3, setWeb3] = useState(undefined);
     const [accounts, setAccounts] = useState(undefined);
     const [contract, setContract] = useState(undefined);
-
-    useEffect(() => {
-        const init = async () => {
-            const web3 = await getWeb3();
-            const accounts = await web3.eth.getAccounts();
-            const networkId = await web3.eth.net.getId();
-            const deployedNetwork = DMed.networks[networkId];
-            const contract = new web3.eth.Contract(
-                DMed.abi,
-                deployedNetwork && deployedNetwork.address,
-            );
-
-            setWeb3(web3);
-            setAccounts(accounts);
-            setContract(contract);
-        }
-        init();
-        window.ethereum.on('accountsChanged', accounts => {
-            setAccounts(accounts);
-        });
-    }, []);
-
+    const history = useHistory();
+    
     const isReady = () => {
-
         return (
             typeof contract !== 'undefined'
             && typeof web3 !== 'undefined'
             && typeof accounts !== 'undefined'
         );
     }
+
+    useEffect(() => {
+        const init = async () => {
+            try {
+                const web3 = await getWeb3();
+                const accounts = await web3.eth.getAccounts();
+                const networkId = await web3.eth.net.getId();
+                const deployedNetwork = DMed.networks[networkId];
+                const contract = new web3.eth.Contract(
+                    DMed.abi,
+                    deployedNetwork && deployedNetwork.address,
+                );
+
+                setWeb3(web3);
+                setAccounts(accounts);
+                setContract(contract);
+            } catch (error) {
+                window.alert(error);
+                history.push("/dashboard");
+            }
+        }
+        init();
+        if (isReady()) {
+            window.ethereum.on('accountsChanged', accounts => {
+                setAccounts(accounts);
+            });
+        }
+    }, [history]);
 
     if (!isReady()) {
         return <Loading />;

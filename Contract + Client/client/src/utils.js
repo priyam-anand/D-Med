@@ -23,14 +23,9 @@ const getWeb3 = () => {
                 console.log("Injected web3 detected.");
                 resolve(web3);
             }
-            // Fallback to localhost; use dev console port by default...
+            // none of the above options found. rejecting promise with error.
             else {
-                const provider = new Web3.providers.HttpProvider(
-                    "http://localhost:9545"
-                );
-                const web3 = new Web3(provider);
-                console.log("No web3 instance injected, using Local web3.");
-                resolve(web3);
+                reject("Please install metamask");
             }
         };
         onLoad();
