@@ -14,7 +14,15 @@ const PublicDashBoard = () => {
     const [accounts, setAccounts] = useState(undefined);
     const [contract, setContract] = useState(undefined);
     const history = useHistory();
-    
+    const [owner, setOwner] = useState(null);
+    const [admin, setAdmin] = useState("");
+    const [isAdmin, setIsAdmin] = useState("");
+    const [hospitalId, setHospitalId] = useState("");
+    const [hospital, setHospital] = useState(null);
+    const [orgId,setOrgId] = useState("");
+    const [org,setOrg] = useState(null);
+
+
     const isReady = () => {
         return (
             typeof contract !== 'undefined'
@@ -51,6 +59,46 @@ const PublicDashBoard = () => {
         }
     }, [history]);
 
+    const getOwner = async (e) => {
+        e.preventDefault();
+
+        const owner = await contract.methods.getOwner().call();
+        setOwner(owner);
+    }
+
+    const getAdmin = async (e) => {
+        e.preventDefault();
+
+        const isAdmin = await contract.methods.isAdmin(admin).call();
+        if (isAdmin)
+            setIsAdmin(admin + " is an admin");
+        else
+            setIsAdmin(admin + " is not an admin");
+        setAdmin("");
+    }
+
+    const getHospital = async (e) => {
+        e.preventDefault();
+        try {
+            const hos = await contract.methods.getHospitalById(hospitalId).call();
+            setHospital(hos);
+        } catch (error) {
+            window.alert("Could not get details of hospital. Please check Hospial Id")
+        }
+        setHospitalId("");
+    }
+
+    const getOrg = async (e) => {
+        e.preventDefault();
+        try {
+            const hos = await contract.methods.getOrganizationById(orgId).call();
+            setOrg(hos);
+        } catch (error) {
+            window.alert("Could not get details of Organization. Please check Organization Id")
+        }
+        setOrgId("");
+    }    
+
     if (!isReady()) {
         return <Loading />;
     }
@@ -71,9 +119,10 @@ const PublicDashBoard = () => {
                             Get Address of the Owner
                         </h4>
                         <div>
-                            <button>Click Here</button>
+                            <button onClick={getOwner}>Click Here</button>
                             <span>
-                                Owner's Address : 0xadlka54df68ad7v64ad8f65a4f687
+                                {owner ? (`Owner's Address : ${owner}`)
+                                    : ""}
                             </span>
                         </div>
                     </div>
@@ -83,10 +132,10 @@ const PublicDashBoard = () => {
                             Check for Admin
                         </h4>
                         <div>
-                            <form>
+                            <form onSubmit={getAdmin}>
                                 <div className="row">
                                     <div className="col-md-4 form-group py-1">
-                                        <input type="text" name="address" className="form-control" id="admin-address" placeholder="Admin's Address" />
+                                        <input type="text" name="address" className="form-control" id="admin-address" placeholder="Admin's Address" required value={admin} onChange={e => setAdmin(e.target.value)} />
                                     </div>
                                     <div className="col-md-4 form-group mt-3 mt-md-0 py-1">
                                         <button type="submit">Click Here</button>
@@ -94,7 +143,7 @@ const PublicDashBoard = () => {
                                 </div>
                             </form>
                             <div className="is-admin">
-                                0xadlka54df68ad7v64ad8f65a4f687 is an Admin
+                                {isAdmin}
                             </div>
                         </div>
                     </div>
@@ -104,13 +153,10 @@ const PublicDashBoard = () => {
                             Get Details of Hospital
                         </h4>
                         <div>
-                            <form>
+                            <form onSubmit={getHospital}>
                                 <div className="row">
                                     <div className="col-md-4 form-group py-1">
-                                        <input type="text" name="address" className="form-control" id="hospital-address" placeholder="Hospital's Address" />
-                                    </div>
-                                    <div className="col-md-4 form-group py-1">
-                                        <input type="number" name="id" className="form-control" id="hospital-id" placeholder="Hospital's Id" />
+                                        <input type="number" name="id" className="form-control" id="hospital-id" placeholder="Hospital's Id" value={hospitalId} onChange={e => setHospitalId(e.target.value)} required />
                                     </div>
                                     <div className="col-md-4 form-group mt-3 mt-md-0 py-1">
                                         <button type="submit">Click Here</button>
@@ -118,21 +164,26 @@ const PublicDashBoard = () => {
                                 </div>
                             </form>
                             <div className="details">
-                                <ul>
-                                    <li className="row">
-                                        <span className="col-md-3">Hospital Name :</span> Name
-                                    </li>
-                                    <li className="row">
-                                        <span className="col-md-3">Hospital Id :</span> Id
-                                    </li>
-                                    <li className="row">
-                                        <span className="col-md-3">Hospital's Address :</span> Address
-                                    </li>
-                                    <li className="row">
-                                        <span className="col-md-3">Hospital's Ethereum Address :</span> 0x65ad6f4a9d8f65ad4f6a
-                                    </li>
-                                </ul>
-
+                                {!hospital
+                                    ? <></>
+                                    : (<ul>
+                                        <li className="row">
+                                            <span className="col-md-3">Hospital Name :</span> {hospital.name}
+                                        </li>
+                                        <li className="row">
+                                            <span className="col-md-3">Hospital Id :</span> {hospital.id}
+                                        </li>
+                                        <li className="row">
+                                            <span className="col-md-3">Hospital's Address :</span> {hospital.physicalAddress}
+                                        </li>
+                                        <li className="row">
+                                            <span className="col-md-3">Hospital's Ethereum Address :</span> {hospital.walletAddress}
+                                        </li>
+                                        <li className="row">
+                                            <span className="col-md-3 license">License :</span>
+                                            <img src={`https://ipfs.io/ipfs/${hospital.License}`} alt="license of hospital" />
+                                        </li>
+                                    </ul>)}
                             </div>
                         </div>
                     </div>
@@ -142,13 +193,10 @@ const PublicDashBoard = () => {
                             Get Details of Organization
                         </h4>
                         <div>
-                            <form>
+                            <form onSubmit={getOrg}>
                                 <div className="row">
                                     <div className="col-md-4 form-group py-1">
-                                        <input type="text" name="address" className="form-control" id="hospital-address" placeholder="Hospital's Address" />
-                                    </div>
-                                    <div className="col-md-4 form-group py-1">
-                                        <input type="number" name="id" className="form-control" id="hospital-id" placeholder="Hospital's Id" />
+                                        <input type="number" name="id" className="form-control" id="org-id" placeholder="Organization's Id" value={orgId} onChange={e=>setOrgId(e.target.value)} required/>
                                     </div>
                                     <div className="col-md-4 form-group mt-3 mt-md-0 py-1">
                                         <button type="submit">Click Here</button>
@@ -156,65 +204,23 @@ const PublicDashBoard = () => {
                                 </div>
                             </form>
                             <div className="details">
-                                <ul>
-                                    <li className="row">
-                                        <span className="col-md-3">Hospital Name :</span> Name
-                                    </li>
-                                    <li className="row">
-                                        <span className="col-md-3">Hospital Id :</span> Id
-                                    </li>
-                                    <li className="row">
-                                        <span className="col-md-3">Hospital's Address :</span> Address
-                                    </li>
-                                    <li className="row">
-                                        <span className="col-md-3">Hospital's Ethereum Address :</span> 0x65ad6f4a9d8f65ad4f6a
-                                    </li>
-                                    <li className="row">
-                                        <span className="col-md-3 license">License :</span>
-                                        <img src={License1} alt="" />
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="get-details">
-                        <h4>
-                            Get Details of Hospital
-                        </h4>
-                        <div>
-                            <form>
-                                <div className="row">
-                                    <div className="col-md-4 form-group py-1">
-                                        <input type="text" name="address" className="form-control" id="hospital-address" placeholder="Hospital's Address" />
-                                    </div>
-                                    <div className="col-md-4 form-group py-1">
-                                        <input type="number" name="id" className="form-control" id="hospital-id" placeholder="Hospital's Id" />
-                                    </div>
-                                    <div className="col-md-4 form-group mt-3 mt-md-0 py-1">
-                                        <button type="submit">Click Here</button>
-                                    </div>
-                                </div>
-                            </form>
-                            <div className="details">
-                                <ul>
-                                    <li className="row">
-                                        <span className="col-md-3">Hospital Name :</span> Name
-                                    </li>
-                                    <li className="row">
-                                        <span className="col-md-3">Hospital Id :</span> Id
-                                    </li>
-                                    <li className="row">
-                                        <span className="col-md-3">Hospital's Address :</span> Address
-                                    </li>
-                                    <li className="row">
-                                        <span className="col-md-3">Hospital's Ethereum Address :</span> 0x65ad6f4a9d8f65ad4f6a
-                                    </li>
-                                    <li className="row">
-                                        <span className="col-md-3 license">License :</span>
-                                        <img src={License2} alt="" />
-                                    </li>
-                                </ul>
+                                {!org
+                                    ? <></>
+                                    : (<ul>
+                                        <li className="row">
+                                            <span className="col-md-3">Organization Name :</span> {org.name}
+                                        </li>
+                                        <li className="row">
+                                            <span className="col-md-3">Organization Id :</span> {org.id}
+                                        </li>
+                                        <li className="row">
+                                            <span className="col-md-3">Organization's Ethereum Address :</span> {org.walletAddress}
+                                        </li>
+                                        <li className="row">
+                                            <span className="col-md-3 license">License :</span>
+                                            <img src={`https://ipfs.io/ipfs/${org.License}`} alt="license of hospital" />
+                                        </li>
+                                    </ul>)}
                             </div>
                         </div>
                     </div>
