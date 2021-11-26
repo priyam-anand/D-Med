@@ -207,7 +207,7 @@ contract DMed is Ownable {
         string memory _profilePicture,
         address _walletAddress
     ) public onlyHospital {
-        require(patients[_id].id == 0, "Patient already exists");
+        require(patients[_id].id == 0 && patientToId[_walletAddress] == 0 , "Patient already exists");
         uint256[] memory _records;
         patientToId[_walletAddress] = _id;
         patients[_id] = Patient(
