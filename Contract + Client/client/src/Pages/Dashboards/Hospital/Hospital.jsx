@@ -77,7 +77,6 @@ const Hospital = () => {
         setRecords([]);
         try {
             const recs = await contract.methods.getPatientRecords(patId).call({ from: accounts[0] });
-            setRecords(recs);
             const recsArray = [];
             for (let i = 0; i < recs[0].length; i++) {
                 recsArray.push({

@@ -13,6 +13,10 @@ const Auth = () => {
     const [accounts, setAccounts] = useState(undefined);
     const [contract, setContract] = useState(undefined);
     const history = useHistory();
+    const [patientId, setPatientId] = useState("");
+    const [patientIdRec, setPatientIdRec] = useState("");
+    const [patient, setPatient] = useState(null);
+    const [records, setRecords] = useState([]);
 
     const isReady = () => {
         return (
@@ -50,6 +54,40 @@ const Auth = () => {
         }
     }, [history]);
 
+    const getPatient = async (e) => {
+        e.preventDefault();
+        try {
+            const pat = await contract.methods.getPatientDetails(patientId).call({ from: accounts[0] });
+            setPatient(pat);
+        } catch (err) {
+            window.alert("Could not get details of patient. Please make sure you have the correct rights and you have the correct Id")
+        }
+        setPatientId("");
+    }
+
+    const getRecords = async (e) => {
+        e.preventDefault();
+        setRecords([]);
+        try {
+            const recs = await contract.methods.getPatientRecords(patientIdRec).call({ from: accounts[0] });
+            const recsArray = [];
+            for (let i = 0; i < recs[0].length; i++) {
+                recsArray.push({
+                    hospitalId: recs[0][i],
+                    condition: recs[1][i],
+                    description: recs[2][i],
+                    allergy: recs[3][i],
+                    docs: recs[4][i]
+                })
+            }
+            setRecords(recsArray);
+        } catch (err) {
+            console.log(err)
+            window.alert("Could not get records of patient. Please make sure you have the correct rights and you have the correct Id")
+        }
+        setPatientIdRec("");
+    }
+
     if (!isReady()) {
         return <Loading />;
     }
@@ -70,17 +108,20 @@ const Auth = () => {
                             Get Details of Patient
                         </h4>
                         <div>
-                            <form>
+                            <form onSubmit={getPatient}>
                                 <div className="row">
                                     <div className="col-md-4 form-group py-1">
-                                        <input type="number" name="id" className="form-control" id="paitnet-id" placeholder="Patient's Id" />
+                                        <input type="number" name="id" className="form-control" id="paitnet-id" placeholder="Patient's Id" required value={patientId}
+                                            onChange={e => setPatientId(e.target.value)} />
                                     </div>
                                     <div className="col-md-4 form-group mt-3 mt-md-0 py-1">
                                         <button type="submit">Click Here</button>
                                     </div>
                                 </div>
                             </form>
-                            <Patient />
+                            {!patient
+                                ? <></>
+                                : <Patient patient={patient} />}
                         </div>
                     </div>
 
@@ -89,18 +130,23 @@ const Auth = () => {
                             Get Records of Patient
                         </h4>
                         <div>
-                            <form>
+                            <form onSubmit={getRecords}>
                                 <div className="row">
                                     <div className="col-md-4 form-group py-1">
-                                        <input type="text" name="address" className="form-control" id="hospital-address" placeholder="Hospital's Address" />
+                                        <input type="number" name="address" className="form-control" id="patient-id" placeholder="Patient's Id" required value={patientIdRec} onChange={e => setPatientIdRec(e.target.value)} />
                                     </div>
                                     <div className="col-md-4 form-group mt-3 mt-md-0 py-1">
                                         <button type="submit">Click Here</button>
                                     </div>
                                 </div>
                             </form>
-                            <Record />
-                            <Record />
+                            {records.length > 0
+                                ?
+                                records.map((record, index) => {
+                                    return <div key={index}><Record record={record} /></div>
+                                })
+                                : <></>
+                            }
                         </div>
                     </div>
                 </div>
