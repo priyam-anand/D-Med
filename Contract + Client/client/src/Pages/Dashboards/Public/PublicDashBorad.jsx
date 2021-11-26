@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import "./PublicDashBoard.css";
-import License1 from "../../../assets/license1.jpg";
-import License2 from "../../../assets/license2.jpg";
-
 import { getWeb3 } from "../../../utils.js";
 import DMed from "../../../contracts/DMed.json";
 import Loading from '../../../Components/Loading/Loading';
@@ -83,6 +80,7 @@ const PublicDashBoard = () => {
             const hos = await contract.methods.getHospitalById(hospitalId).call();
             setHospital(hos);
         } catch (error) {
+            console.log(error)
             window.alert("Could not get details of hospital. Please check Hospial Id")
         }
         setHospitalId("");

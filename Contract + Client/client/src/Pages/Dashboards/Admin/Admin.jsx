@@ -86,11 +86,10 @@ const Admin = () => {
         e.preventDefault();
         try {
             const result = await ipfs.add(hospitalBuffer);
-            console.log("IPFS Hash",result);
             await contract.methods.addHospital(hospital.name, hospital.address, hospital.ethAdd, result.path).send({from:accounts[0]});
             window.alert("Hospital Registered Successfully"); 
         } catch (error) {
-            window.alert("Hospital Could not be added. Make sure you are an admin and check input fields");
+            window.alert("Hospital could not be added. Make sure you are an admin and check input fields");
             console.error(error);
         }
         setHospital({ name: "", address: "", ethAdd: "" });
