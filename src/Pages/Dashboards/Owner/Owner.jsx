@@ -30,6 +30,8 @@ const Owner = () => {
                 const accounts = await web3.eth.getAccounts();
                 const networkId = await web3.eth.net.getId();
                 const deployedNetwork = DMed.networks[networkId];
+                if(deployedNetwork === undefined)
+                    throw new Error('Make sure you are on the corrent network. Set the network to Ropsten Test Network');
                 const contract = new web3.eth.Contract(
                     DMed.abi,
                     deployedNetwork && deployedNetwork.address,
