@@ -28,25 +28,28 @@ const App = () => {
           <Services />
         </Route>
         <Route exact path="/dashboard">
-          <Dashboard/>
+          <Dashboard />
         </Route>
         <Route exact path="/dashboard/public">
-          <PublicDashBoard/>
+          <PublicDashBoard />
         </Route>
         <Route exact path="/dashboard/authorized">
-          <Auth/>
+          <Auth />
         </Route>
         <Route exact path="/dashboard/hospital">
-          <Hospital/>
+          <Hospital />
         </Route>
         <Route exact path="/dashboard/patient">
-          <Patient/>
+          <Patient />
         </Route>
         <Route exact path="/dashboard/admin">
-          <Admin/>
+          <Admin />
         </Route>
         <Route exact path="/dashboard/owner">
-          <Owner/>
+          <Owner />
+        </Route>
+        <Route>
+          <Home />
         </Route>
       </Switch>
       <Footer />
