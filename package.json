@@ -21,7 +21,6 @@
     "web3": "^1.6.1"
   },
   "homepage": "http://priyam-anand.github.io/D-Med",
-
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
