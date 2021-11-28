@@ -23,7 +23,7 @@ const Hospital = () => {
     const [recordBuffer, setRecordBuffer] = useState(undefined);
     const [records, setRecords] = useState([]);
     const [patId, setPatId] = useState("");
-
+    const [hospital,setHospital] = useState();
     const isReady = () => {
         return (
             typeof contract !== 'undefined'
@@ -39,7 +39,7 @@ const Hospital = () => {
                 const accounts = await web3.eth.getAccounts();
                 const networkId = await web3.eth.net.getId();
                 const deployedNetwork = DMed.networks[networkId];
-                if(deployedNetwork === undefined)
+                if (deployedNetwork === undefined)
                     throw new Error('Make sure you are on the corrent network. Set the network to Ropsten Test Network');
                 const contract = new web3.eth.Contract(
                     DMed.abi,
@@ -146,6 +146,17 @@ const Hospital = () => {
         }
     }
 
+    const getHospital = async (e) => {
+        e.preventDefault();
+        try {
+            const hos = await contract.methods.getHospitalByAddress(accounts[0]).call();
+            setHospital(hos);
+        } catch (error) {
+            console.log(error)
+            window.alert("Could not get your details. Please make sure you are registerd as a Hospital")
+        }
+    }
+
     if (!isReady()) {
         return <Loading />;
     }
@@ -159,6 +170,43 @@ const Hospital = () => {
                         <p>
                             Various operations a hospital can do.
                         </p>
+                    </div>
+
+                    <div className="get-details">
+                        <h4>
+                            Get Details of Hospital
+                        </h4>
+                        <div>
+                            <form onSubmit={getHospital}>
+                                <div className="row">
+                                    <div className="col-md-4 form-group mt-3 mt-md-0 py-1">
+                                        <button type="submit">Click Here</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <div className="details">
+                                {!hospital
+                                    ? <></>
+                                    : (<ul>
+                                        <li className="row">
+                                            <span className="col-md-3">Hospital Name :</span> {hospital.name}
+                                        </li>
+                                        <li className="row">
+                                            <span className="col-md-3">Hospital Id :</span> {hospital.id}
+                                        </li>
+                                        <li className="row">
+                                            <span className="col-md-3">Hospital's Address :</span> {hospital.physicalAddress}
+                                        </li>
+                                        <li className="row">
+                                            <span className="col-md-3">Hospital's Ethereum Address :</span> {hospital.walletAddress}
+                                        </li>
+                                        <li className="row">
+                                            <span className="col-md-3 license">License :</span>
+                                            <img src={`https://ipfs.io/ipfs/${hospital.License}`} alt="license of hospital" />
+                                        </li>
+                                    </ul>)}
+                            </div>
+                        </div>
                     </div>
 
                     <div className="get-details-patient">

@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/D-Med/static/css/main.6a7964f7.chunk.css",
-    "main.js": "/D-Med/static/js/main.f6cbd1f7.chunk.js",
-    "main.js.map": "/D-Med/static/js/main.f6cbd1f7.chunk.js.map",
+    "main.css": "/D-Med/static/css/main.021ca7cc.chunk.css",
+    "main.js": "/D-Med/static/js/main.462d1065.chunk.js",
+    "main.js.map": "/D-Med/static/js/main.462d1065.chunk.js.map",
     "runtime-main.js": "/D-Med/static/js/runtime-main.3d2d6b61.js",
     "runtime-main.js.map": "/D-Med/static/js/runtime-main.3d2d6b61.js.map",
     "static/css/2.383c0125.chunk.css": "/D-Med/static/css/2.383c0125.chunk.css",
@@ -10,7 +10,7 @@
     "static/js/2.01f21308.chunk.js.map": "/D-Med/static/js/2.01f21308.chunk.js.map",
     "index.html": "/D-Med/index.html",
     "static/css/2.383c0125.chunk.css.map": "/D-Med/static/css/2.383c0125.chunk.css.map",
-    "static/css/main.6a7964f7.chunk.css.map": "/D-Med/static/css/main.6a7964f7.chunk.css.map",
+    "static/css/main.021ca7cc.chunk.css.map": "/D-Med/static/css/main.021ca7cc.chunk.css.map",
     "static/js/2.01f21308.chunk.js.LICENSE.txt": "/D-Med/static/js/2.01f21308.chunk.js.LICENSE.txt",
     "static/media/Problem.css": "/D-Med/static/media/centralized.9528ca96.jpg",
     "static/media/Solution.css": "/D-Med/static/media/dencetralized.cf8ce6e7.jpg"
@@ -19,7 +19,7 @@
     "static/js/runtime-main.3d2d6b61.js",
     "static/css/2.383c0125.chunk.css",
     "static/js/2.01f21308.chunk.js",
-    "static/css/main.6a7964f7.chunk.css",
-    "static/js/main.f6cbd1f7.chunk.js"
+    "static/css/main.021ca7cc.chunk.css",
+    "static/js/main.462d1065.chunk.js"
   ]
 }

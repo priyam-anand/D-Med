@@ -16,9 +16,10 @@ const Admin = () => {
     const history = useHistory();
     const [hospital, setHospital] = useState({ name: "", address: "", ethAdd: "" });
     const [hospitalBuffer, setHospitalBuffer] = useState("");
-    const [org,setOrg] = useState({name:"",ethAdd:""});
-    const [orgBuffer,setOrgBuffer] = useState("");
-
+    const [org, setOrg] = useState({ name: "", ethAdd: "" });
+    const [orgBuffer, setOrgBuffer] = useState("");
+    const [currentHospitalId, setCurrentHospitalId] = useState(undefined);
+    const [currentOrgId, setCurrentOrgId] = useState(undefined);
 
     const isReady = () => {
         return (
@@ -26,6 +27,8 @@ const Admin = () => {
             && typeof web3 !== 'undefined'
             && typeof accounts !== 'undefined'
             && typeof ipfs !== 'undefined'
+            && typeof currentHospitalId !== 'undefined'
+            && typeof currentOrgId !== 'undefined'
         );
     }
 
@@ -36,13 +39,19 @@ const Admin = () => {
                 const accounts = await web3.eth.getAccounts();
                 const networkId = await web3.eth.net.getId();
                 const deployedNetwork = DMed.networks[networkId];
-                if(deployedNetwork === undefined)
+                if (deployedNetwork === undefined)
                     throw new Error('Make sure you are on the corrent network. Set the network to Ropsten Test Network');
                 const contract = new web3.eth.Contract(
                     DMed.abi,
                     deployedNetwork && deployedNetwork.address,
                 );
                 const ipfsNode = create('https://ipfs.infura.io:5001');
+
+                const currHos = await contract.methods.hospitalId().call({ from: accounts[0] });
+                const currOrg = await contract.methods.organizationId().call({ from: accounts[0] });
+
+                setCurrentHospitalId(currHos);
+                setCurrentOrgId(currOrg);
                 setWeb3(web3);
                 setAccounts(accounts);
                 setContract(contract);
@@ -62,6 +71,16 @@ const Admin = () => {
 
     if (!isReady()) {
         return <Loading />;
+    }
+
+    const updateIds = async () => {
+        if(!isReady())
+            return;
+        const currHos = await contract.methods.hospitalId().call({ from: accounts[0] });
+        const currOrg = await contract.methods.organizationId().call({ from: accounts[0] });
+
+        setCurrentHospitalId(currHos);
+        setCurrentOrgId(currOrg);
     }
 
     const handleChangeHospital = (e) => {
@@ -88,8 +107,9 @@ const Admin = () => {
         e.preventDefault();
         try {
             const result = await ipfs.add(hospitalBuffer);
-            await contract.methods.addHospital(hospital.name, hospital.address, hospital.ethAdd, result.path).send({from:accounts[0]});
-            window.alert("Hospital Registered Successfully"); 
+            await contract.methods.addHospital(hospital.name, hospital.address, hospital.ethAdd, result.path).send({ from: accounts[0] });
+            await updateIds();
+            window.alert("Hospital Registered Successfully");
         } catch (error) {
             window.alert("Hospital could not be added. Make sure you are an admin and check input fields");
             console.error(error);
@@ -101,9 +121,10 @@ const Admin = () => {
         e.preventDefault();
         try {
             const result = await ipfs.add(orgBuffer);
-            console.log("IPFS Hash",result);
-            await contract.methods.addOrganization(org.name, org.ethAdd, result.path).send({from:accounts[0]});
-            window.alert("Organization Registered Successfully"); 
+            console.log("IPFS Hash", result);
+            await contract.methods.addOrganization(org.name, org.ethAdd, result.path).send({ from: accounts[0] });
+            await updateIds();
+            window.alert("Organization Registered Successfully");
         } catch (error) {
             window.alert("Organization Could not be added. Make sure you are an admin and check input fields");
             console.error(error);
@@ -126,6 +147,9 @@ const Admin = () => {
                         <h4>
                             Add new Hospital
                         </h4>
+                        <span className="current-id">
+                            {`Current Id : ${currentHospitalId}`}
+                        </span>
                         <div>
                             <form onSubmit={handleSubmitHospital}>
                                 <div className="row">
@@ -153,18 +177,21 @@ const Admin = () => {
                         <h4>
                             Add new Organization
                         </h4>
+                        <span className="current-id">
+                            {`Current Id : ${currentOrgId}`}
+                        </span>
                         <div>
                             <form onSubmit={handleSubmitOrg}>
                                 <div className="row">
                                     <div className="col-md-4 form-group py-1">
-                                        <input type="text" name="name" className="form-control" id="org-name" placeholder="Organization's Name" value={org.name} onChange={e=>setOrg({...org,name:e.target.value})} required/>
+                                        <input type="text" name="name" className="form-control" id="org-name" placeholder="Organization's Name" value={org.name} onChange={e => setOrg({ ...org, name: e.target.value })} required />
                                     </div>
                                     <div className="col-md-4 form-group py-1">
-                                        <input type="text" name="name" className="form-control" id="ethereum-address" placeholder="Ethereum Address" value={org.ethAdd} onChange={e=>setOrg({...org,ethAdd:e.target.value})} required/>
+                                        <input type="text" name="name" className="form-control" id="ethereum-address" placeholder="Ethereum Address" value={org.ethAdd} onChange={e => setOrg({ ...org, ethAdd: e.target.value })} required />
                                     </div>
                                     <br />
                                     <div className="col-md-4 form-group py-1 mx-1">
-                                        <input type="file" name="name" className="form-control" id="license" required onChange={handleChangeOrg}/>
+                                        <input type="file" name="name" className="form-control" id="license" required onChange={handleChangeOrg} />
                                     </div>
                                     <div className="col-md-4 form-group mt-3 mt-md-0 py-1">
                                         <button type="submit">Submit</button>
