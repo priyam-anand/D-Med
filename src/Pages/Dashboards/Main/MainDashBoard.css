@@ -46,10 +46,11 @@
   margin-bottom: 15px;
   font-size: 24px;
 }
-.services .icon-box h4 a {
+.services .icon-box h4 {
   color: #2c4964;
 }
 .services .icon-box p {
+  color: black;
   line-height: 24px;
   font-size: 14px;
   margin-bottom: 0;
@@ -67,6 +68,6 @@
 .services .icon-box:hover .icon::before {
   background: #3291e6;
 }
-.services .icon-box:hover h4 a, .services .icon-box:hover p {
+.services .icon-box:hover h4 , .services .icon-box:hover p {
   color: #fff;
 }
