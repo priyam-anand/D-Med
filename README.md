@@ -115,6 +115,7 @@ The application offers a variety of services. Some of them open for the public t
 6. You are all setup to use D-Med. Head over to the public dashboard in the application to connect to the blockchain using your Meta Mask wallet and try out the various features.
 (HINT : Try Hospital ID 1 to 4 to get their details)
 
+**( IF YOU WANT TO GET THE ROLE OF ADMIN, HOSPITAL OR ORGANIZATION TO EXPLORE MORE ABOUT D-MED CONTACT ME AT priyam27.anand@gmail.com AND DON'T FORGET TO SEND YOUR ETHEREUM ADDRESS )** 
 <!-- GETTING STARTED -->
 <a id="getting-started"></a>
 
