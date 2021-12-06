@@ -114,7 +114,7 @@ const Hospital = () => {
             const result = await ipfs.add(patientBuffer);
             console.log(result);
             console.log(patientAdd);
-            await contract.methods.addNewPatient(patientAdd.id, patientAdd.name, patientAdd.gender, patientAdd.bloodgroup, patientAdd.dob, patientAdd.number, patientAdd.address, result.path, patientAdd.ethAdd).send({ from: accounts[0] });
+            await contract.methods.addNewPatient(patientAdd.id, patientAdd.name, patientAdd.gender, patientAdd.bloodgroup, patientAdd.dob, patientAdd.number, patientAdd.address, result.path, patientAdd.ethAdd.trim()).send({ from: accounts[0] });
             window.alert("Patient Registered Successfully");
         } catch (error) {
             window.alert("Patient could not be added. Make sure you are an authorized and check input fields");

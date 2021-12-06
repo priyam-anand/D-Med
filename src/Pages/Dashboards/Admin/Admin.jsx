@@ -107,7 +107,7 @@ const Admin = () => {
         e.preventDefault();
         try {
             const result = await ipfs.add(hospitalBuffer);
-            await contract.methods.addHospital(hospital.name, hospital.address, hospital.ethAdd, result.path).send({ from: accounts[0] });
+            await contract.methods.addHospital(hospital.name, hospital.address, hospital.ethAdd.trim(), result.path).send({ from: accounts[0] });
             await updateIds();
             window.alert("Hospital Registered Successfully");
         } catch (error) {
@@ -122,7 +122,7 @@ const Admin = () => {
         try {
             const result = await ipfs.add(orgBuffer);
             console.log("IPFS Hash", result);
-            await contract.methods.addOrganization(org.name, org.ethAdd, result.path).send({ from: accounts[0] });
+            await contract.methods.addOrganization(org.name, org.ethAdd.trim(), result.path).send({ from: accounts[0] });
             await updateIds();
             window.alert("Organization Registered Successfully");
         } catch (error) {

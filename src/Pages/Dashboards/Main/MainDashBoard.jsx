@@ -23,7 +23,7 @@ const Dashboard = () => {
                         </Link>
 
                         <div className="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
-                            <Link className="icon-box">
+                            <Link to="/dashboard/authorized" className="icon-box">
                                 <div className="icon"><Icon icon="whh:authentication" className="i" /></div>
                                 <h4>Authorized</h4>
                                 <p>These funtions are for the authorized organization only. Make sure that you have the correct access rights before you enter.</p>

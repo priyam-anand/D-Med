@@ -96,7 +96,7 @@ const Patient = () => {
     const handleAddAuthAddress = async (e) => {
         e.preventDefault();
         try {
-            await contract.methods.addAuthByAddress(addAuthAddress).send({ from: accounts[0] });
+            await contract.methods.addAuthByAddress(addAuthAddress.trim()).send({ from: accounts[0] });
             window.alert("Authorized successfully");
         } catch (error) {
             window.alert("Could not authorized. Make sure you have the right privileges");
@@ -120,7 +120,7 @@ const Patient = () => {
     const handleRemoveAuthAddress = async (e) => {
         e.preventDefault();
         try {
-            await contract.methods.revokeAuthByAddress(removeAuthAddress).send({ from: accounts[0] });
+            await contract.methods.revokeAuthByAddress(removeAuthAddress.trim()).send({ from: accounts[0] });
             window.alert("Unauthorized successfully");
         } catch (error) {
             window.alert("Could not authorized. Make sure you have the right privileges.");
