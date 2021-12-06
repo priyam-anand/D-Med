@@ -56,7 +56,7 @@ const Owner = () => {
     const AddAdmin = async (e) => {
         e.preventDefault();
         try {
-            await contract.methods.addAdmin(addAdmin).send({from:accounts[0]});
+            await contract.methods.addAdmin(addAdmin.trim()).send({from:accounts[0]});
             window.alert("Admin added successfully");
         } catch (error) {
             window.alert("Admin could not be added. Make sure you are the Owner and check the entered Address");
@@ -68,7 +68,7 @@ const Owner = () => {
     const RemoveAdmin = async (e) => {
         e.preventDefault();
         try{
-            await contract.methods.removeAdmin(removeAdmin).send({from:accounts[0]});
+            await contract.methods.removeAdmin(removeAdmin.trim()).send({from:accounts[0]});
             window.alert("Admin removed successfully");
         }catch(error)
         {
@@ -82,7 +82,7 @@ const Owner = () => {
         e.preventDefault();
 
         try {
-            await contract.methods.changeOwner(transferOwnership).send({from:accounts[0]});
+            await contract.methods.changeOwner(transferOwnership.trim()).send({from:accounts[0]});
             window.alert("Owner changed successfully");
         } catch (error) {
             window.alert("Ownership could not be transferred. Make sure you are the Owner and check the entered Address");
